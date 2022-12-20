@@ -1,0 +1,34 @@
+{
+	"name": "disposablestack",
+	"version": "0.0.0",
+	"description": "An ESnext spec-compliant `DisposableStack` and `Symbol.dispose` shim/polyfill/replacement that works as far down as ES3.",
+	"main": "index.js",
+	"exports": {
+		".": "./index.js",
+		"./package.json": "./package.json"
+	},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/es-shims/DisposableStack.git"
+	},
+	"keywords": [
+		"javascript",
+		"ecmascript",
+		"polyfill",
+		"shim",
+		"DisposableStack",
+		"dispose",
+		"using",
+		"resource",
+		"management"
+	],
+	"author": "Jordan Harband <ljharb@gmail.com>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/es-shims/DisposableStack/issues"
+	},
+	"homepage": "https://github.com/es-shims/DisposableStack#readme"
+}
