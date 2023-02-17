@@ -1,0 +1,36 @@
+{
+	"root": true,
+
+	"extends": "@ljharb",
+
+	"globals": {
+		"DisposableStack": false,
+	},
+
+	"rules": {
+		"eqeqeq": ["error", "always", { "null": "ignore" }],
+		"func-name-matching": "off",
+		"id-length": "off",
+		"max-lines-per-function": "off",
+		"new-cap": ["error", {
+			"capIsNewExceptions": [
+				"AddDisposableResource",
+				"Call",
+				"CreateDisposableResource",
+				"CreateMethodProperty",
+				"DefinePropertyOrThrow",
+				"Dispose",
+				"DisposeResources",
+				"GetDisposeMethod",
+				"GetIntrinsic",
+				"GetMethod",
+				"IsCallable",
+				"NewDisposeCapability",
+				"NormalCompletion",
+				"ThrowCompletion",
+				"Type",
+			],
+		}],
+		"sort-keys": "off",
+	},
+}
