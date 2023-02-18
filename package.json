@@ -1,6 +1,6 @@
 {
 	"name": "disposablestack",
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"description": "An ESnext spec-compliant `DisposableStack` and `Symbol.dispose` shim/polyfill/replacement that works as far down as ES3.",
 	"main": "index.json",
 	"exports": {
