@@ -16,11 +16,11 @@ var $push = callBound('Array.prototype.push');
 module.exports = function AddDisposableResource(disposeCapability, V, hint) {
 	// assertRecord('DisposeCapability Record', disposeCapability, 'disposeCapability'); ??
 	if (hint !== 'sync-dispose') {
-		throw new $SyntaxError('`hint` must be `\'sync-dispose\'`');
+		throw new $SyntaxError('Assertion failed: `hint` must be `\'sync-dispose\'`');
 	}
 	var method = arguments.length > 3 ? arguments[3] : void undefined;
 	if (arguments.length > 3 && typeof method !== 'function') {
-		throw new $TypeError('`method`, when present, must be a function');
+		throw new $TypeError('Assertion failed: `method`, when present, must be a function');
 	}
 
 	var resource;
