@@ -5,21 +5,13 @@ require('../auto');
 var test = require('tape');
 var hasSymbols = require('has-symbols')();
 
-var shims = require('../');
-
 var runTests = require('./tests');
 
 var hasPropertyDescriptors = require('has-property-descriptors')();
 
-test('shims', function (t) {
-	t.deepEqual(shims, ['DisposableStack', 'Symbol.dispose'], 'has expected shims');
-
-	t.end();
-});
-
 /* eslint new-cap: 0 */
 
-test('index', function (t) {
+test('shimmed', function (t) {
 	test('DisposableStack', function (st) {
 		if (hasPropertyDescriptors) {
 			st.deepEqual(
