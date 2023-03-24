@@ -53,7 +53,7 @@
 	"homepage": "https://github.com/es-shims/DisposableStack#readme",
 	"dependencies": {
 		"define-properties": "^1.2.0",
-		"es-abstract": "^1.21.1",
+		"es-abstract": "^1.21.2",
 		"es-set-tostringtag": "^2.0.1",
 		"get-intrinsic": "^1.2.0",
 		"has-symbols": "^1.0.3",
