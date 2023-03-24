@@ -32,16 +32,11 @@ module.exports = function AddDisposableResource(disposeCapability, V, hint) {
 			throw new $TypeError('`V` must be an Object'); // step 1.b
 		}
 		resource = CreateDisposableResource(V, hint); // step 1.c
-	} else {
-		/* eslint no-lonely-if: 0 */
-		if (V == null) { // step 2.a
-			resource = CreateDisposableResource(void undefined, hint, method); // step 2.a.i
-		} else { // step 2.b
-			if (Type(V) !== 'Object') {
-				throw new $TypeError('`V` must be an Object'); // step 2.b.i
-			}
-			resource = CreateDisposableResource(V, hint, method); // step 2.b.ii
+	} else { // step 2
+		if (typeof V !== 'undefined') {
+			throw new $TypeError('Assertion failed: `V` must be undefined when `method` is present'); // step 2.a
 		}
+		resource = CreateDisposableResource(void undefined, hint, method); // step 2.b
 	}
 	$push(disposeCapability['[[DisposableResourceStack]]'], resource); // step 3
 
