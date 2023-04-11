@@ -18,9 +18,9 @@ var setToStringTag = require('es-set-tostringtag');
 var supportsDescriptors = require('define-properties').supportsDescriptors;
 var callBind = require('call-bind');
 
-var AddDisposableResource = require('./aos/AddDisposableResource');
-var DisposeResources = require('./aos/DisposeResources');
-var NewDisposeCapability = require('./aos/NewDisposeCapability');
+var AddDisposableResource = require('../aos/AddDisposableResource');
+var DisposeResources = require('../aos/DisposeResources');
+var NewDisposeCapability = require('../aos/NewDisposeCapability');
 
 var symbolDispose = require('../Symbol.dispose/polyfill')();
 

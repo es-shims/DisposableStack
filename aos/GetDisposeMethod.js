@@ -8,7 +8,7 @@ var $TypeError = GetIntrinsic('%TypeError%');
 var GetMethod = require('es-abstract/2022/GetMethod');
 var Type = require('es-abstract/2022/Type');
 
-var symbolDispose = require('../../Symbol.dispose/polyfill')();
+var symbolDispose = require('../Symbol.dispose/polyfill')();
 
 module.exports = function GetDisposeMethod(V, hint) {
 	if (Type(V) !== 'Object') {
