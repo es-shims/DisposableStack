@@ -1,7 +1,7 @@
 {
 	"name": "disposablestack",
 	"version": "1.0.0",
-	"description": "An ESnext spec-compliant `DisposableStack` and `Symbol.dispose` shim/polyfill/replacement that works as far down as ES3.",
+	"description": "An ESnext spec-compliant `DisposableStack`, `Symbol.dispose`, and `Symbol.asyncDispose` shim/polyfill/replacement that works as far down as ES3.",
 	"main": "index.json",
 	"exports": {
 		".": "./index.json",
@@ -17,6 +17,11 @@
 		"./Symbol.dispose/polyfill": "./Symbol.dispose/polyfill.js",
 		"./Symbol.dispose/implementation": "./Symbol.dispose/implementation.js",
 		"./Symbol.dispose/shim": "./Symbol.dispose/shim.js",
+		"./Symbol.asyncDispose": "./Symbol.asyncDispose/index.js",
+		"./Symbol.asyncDispose/auto": "./Symbol.asyncDispose/auto.js",
+		"./Symbol.asyncDispose/polyfill": "./Symbol.asyncDispose/polyfill.js",
+		"./Symbol.asyncDispose/implementation": "./Symbol.asyncDispose/implementation.js",
+		"./Symbol.asyncDispose/shim": "./Symbol.asyncDispose/shim.js",
 		"./package.json": "./package.json"
 	},
 	"scripts": {
@@ -41,9 +46,13 @@
 		"shim",
 		"DisposableStack",
 		"dispose",
+		"asyncDispose",
 		"using",
 		"resource",
-		"management"
+		"management",
+		"Symbol",
+		"Symbol.dispose",
+		"Symbol.asyncDispose"
 	],
 	"author": "Jordan Harband <ljharb@gmail.com>",
 	"license": "MIT",

@@ -318,5 +318,22 @@ module.exports = {
 
 			st.end();
 		});
+	},
+	'Symbol.asyncDispose': function testSymbolAsyncDispose(t, symbolAsyncDispose) {
+		t.test('Symbol support', { skip: !hasSymbols() }, function (st) {
+			st.ok(isSymbol(symbolAsyncDispose), 'is a symbol');
+			st.notOk(isRegisteredSymbol(symbolAsyncDispose), 'is not a registered symbol');
+
+			st.end();
+		});
+
+		t.test('no Symbol support', { skip: hasSymbols() }, function (st) {
+			st.notOk(isSymbol(symbolAsyncDispose), 'is not a symbol');
+			st.notOk(isRegisteredSymbol(symbolAsyncDispose), 'is not a registered symbol');
+
+			st.equal(symbolAsyncDispose, null, 'is `null`');
+
+			st.end();
+		});
 	}
 };

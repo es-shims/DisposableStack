@@ -1,9 +1,11 @@
 'use strict';
 
-var shimDisposableStack = require('./DisposableStack/shim');
 var shimSymbolDispose = require('./Symbol.dispose/shim');
+var shimSymbolAsyncDispose = require('./Symbol.asyncDispose/shim');
+var shimDisposableStack = require('./DisposableStack/shim');
 
 module.exports = function shim() {
-	shimDisposableStack();
 	shimSymbolDispose();
+	shimSymbolAsyncDispose();
+	shimDisposableStack();
 };

@@ -9,7 +9,7 @@
 
 [![npm badge][npm-badge-png]][package-url]
 
-An ESnext spec-compliant `DisposableStack` and `Symbol.dispose` shim/polyfill/replacement that works as far down as ES3.
+An ESnext spec-compliant `DisposableStack`, `Symbol.dispose`, and `Symbol.asyncDispose` shim/polyfill/replacement that works as far down as ES3.
 
 Its root `auto` entrypoint also provides `SuppressedError`, via the [`suppressed-error`](https://npmjs.com/suppressed-error) package.
 
@@ -31,6 +31,7 @@ const assert = require('assert');
 require('disposable-stack/auto');
 
 assert.equal(typeof Symbol.dispose, 'symbol');
+assert.equal(typeof Symbol.asyncDispose, 'symbol');
 
 const error = new SuppressedError();
 assert.ok(error instanceof Error);
