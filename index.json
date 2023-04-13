@@ -1,5 +1,6 @@
 [
 	"Symbol.dispose",
 	"Symbol.asyncDispose",
-	"DisposableStack"
+	"DisposableStack",
+	"AsyncDisposableStack"
 ]

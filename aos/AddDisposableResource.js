@@ -15,8 +15,8 @@ var $push = callBound('Array.prototype.push');
 
 module.exports = function AddDisposableResource(disposeCapability, V, hint) {
 	// assertRecord('DisposeCapability Record', disposeCapability, 'disposeCapability'); ??
-	if (hint !== 'sync-dispose') {
-		throw new $SyntaxError('Assertion failed: `hint` must be `\'sync-dispose\'`');
+	if (hint !== 'sync-dispose' && hint !== 'async-dispose') {
+		throw new $SyntaxError('Assertion failed: `hint` must be `\'sync-dispose\'` or `\'async-dispose\'`');
 	}
 	var method = arguments.length > 3 ? arguments[3] : void undefined;
 	if (arguments.length > 3 && typeof method !== 'function') {

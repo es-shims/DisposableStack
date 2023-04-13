@@ -5,13 +5,14 @@ var test = require('tape');
 var symbolDispose = require('../Symbol.dispose');
 var symbolAsyncDispose = require('../Symbol.asyncDispose');
 var DisposableStack = require('../DisposableStack');
+var AsyncDisposableStack = require('../AsyncDisposableStack');
 
 var shims = require('../');
 
 var runTests = require('./tests');
 
 test('shims', function (t) {
-	t.deepEqual(shims, ['Symbol.dispose', 'Symbol.asyncDispose', 'DisposableStack'], 'has expected shims');
+	t.deepEqual(shims, ['Symbol.dispose', 'Symbol.asyncDispose', 'DisposableStack', 'AsyncDisposableStack'], 'has expected shims');
 
 	t.end();
 });
@@ -33,6 +34,12 @@ test('index', function (t) {
 
 	test('DisposableStack', function (st) {
 		runTests.DisposableStack(st, DisposableStack, symbolDispose);
+
+		st.end();
+	});
+
+	test('AsyncDisposableStack', function (st) {
+		runTests.AsyncDisposableStack(st, AsyncDisposableStack, symbolAsyncDispose);
 
 		st.end();
 	});

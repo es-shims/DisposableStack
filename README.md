@@ -9,11 +9,9 @@
 
 [![npm badge][npm-badge-png]][package-url]
 
-An ESnext spec-compliant `DisposableStack`, `Symbol.dispose`, and `Symbol.asyncDispose` shim/polyfill/replacement that works as far down as ES3.
+An ESnext spec-compliant `DisposableStack`, `AsyncDisposableStack`, `Symbol.dispose`, and `Symbol.asyncDispose` shim/polyfill/replacement that works as far down as ES3.
 
 Its root `auto` entrypoint also provides `SuppressedError`, via the [`suppressed-error`](https://npmjs.com/suppressed-error) package.
-
-In the future, this package will also provide `AsyncDisposableStack` and `Symbol.asyncDispose`, or whichever forms end up in stage 3.
 
 This package implements the [es-shim API](https://github.com/es-shims/api) “multi” interface. It works in an ES3-supported environment and complies with the proposed [spec](https://tc39.es/proposal-explicit-resource-management/).
 
@@ -38,9 +36,13 @@ assert.ok(error instanceof Error);
 
 const stack = new DisposableStack();
 
+const asyncStack = new AsyncDisposableStack();
+
 // examples of stack methods
 
 stack.dispose();
+
+asyncStack.dispose();
 
 // assert disposal was done
 ```

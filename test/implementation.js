@@ -5,6 +5,7 @@ var test = require('tape');
 var symbolDispose = require('../Symbol.dispose/implementation');
 var symbolAsyncDispose = require('../Symbol.asyncDispose/implementation');
 var DisposableStack = require('../DisposableStack/implementation');
+var AsyncDisposableStack = require('../AsyncDisposableStack/implementation');
 
 var runTests = require('./tests');
 
@@ -25,6 +26,12 @@ test('implementation', function (t) {
 
 	test('DisposableStack', function (st) {
 		runTests.DisposableStack(st, DisposableStack, symbolDispose);
+
+		st.end();
+	});
+
+	test('AsyncDisposableStack', function (st) {
+		runTests.AsyncDisposableStack(st, AsyncDisposableStack, symbolAsyncDispose);
 
 		st.end();
 	});

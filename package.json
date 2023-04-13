@@ -1,7 +1,7 @@
 {
 	"name": "disposablestack",
 	"version": "1.0.0",
-	"description": "An ESnext spec-compliant `DisposableStack`, `Symbol.dispose`, and `Symbol.asyncDispose` shim/polyfill/replacement that works as far down as ES3.",
+	"description": "An ESnext spec-compliant `DisposableStack`, `AsyncDisposableStack`, `Symbol.dispose`, and `Symbol.asyncDispose` shim/polyfill/replacement that works as far down as ES3.",
 	"main": "index.json",
 	"exports": {
 		".": "./index.json",
@@ -12,6 +12,11 @@
 		"./DisposableStack/polyfill": "./DisposableStack/polyfill.js",
 		"./DisposableStack/implementation": "./DisposableStack/implementation.js",
 		"./DisposableStack/shim": "./DisposableStack/shim.js",
+		"./AsyncDisposableStack": "./AsyncDisposableStack/index.js",
+		"./AsyncDisposableStack/auto": "./AsyncDisposableStack/auto.js",
+		"./AsyncDisposableStack/polyfill": "./AsyncDisposableStack/polyfill.js",
+		"./AsyncDisposableStack/implementation": "./AsyncDisposableStack/implementation.js",
+		"./AsyncDisposableStack/shim": "./AsyncDisposableStack/shim.js",
 		"./Symbol.dispose": "./Symbol.dispose/index.js",
 		"./Symbol.dispose/auto": "./Symbol.dispose/auto.js",
 		"./Symbol.dispose/polyfill": "./Symbol.dispose/polyfill.js",
@@ -45,6 +50,7 @@
 		"polyfill",
 		"shim",
 		"DisposableStack",
+		"AsyncDisposableStack",
 		"dispose",
 		"asyncDispose",
 		"using",

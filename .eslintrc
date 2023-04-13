@@ -4,6 +4,7 @@
 	"extends": "@ljharb",
 
 	"globals": {
+		"AsyncDisposableStack": false,
 		"DisposableStack": false,
 	},
 
@@ -12,6 +13,7 @@
 		"func-name-matching": "off",
 		"id-length": "off",
 		"max-lines-per-function": "off",
+		"multiline-comment-style": "off",
 		"new-cap": ["error", {
 			"capIsNewExceptions": [
 				"AddDisposableResource",
@@ -27,6 +29,7 @@
 				"IsCallable",
 				"NewDisposeCapability",
 				"NormalCompletion",
+				"PromiseResolve",
 				"ThrowCompletion",
 				"Type",
 			],

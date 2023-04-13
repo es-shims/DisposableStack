@@ -2,6 +2,7 @@
 
 var GetIntrinsic = require('get-intrinsic');
 
+var $SyntaxError = GetIntrinsic('%SyntaxError%');
 var $TypeError = GetIntrinsic('%TypeError%');
 
 var IsCallable = require('es-abstract/2022/IsCallable');
@@ -10,11 +11,12 @@ var Type = require('es-abstract/2022/Type');
 var GetDisposeMethod = require('./GetDisposeMethod');
 
 module.exports = function CreateDisposableResource(V, hint) {
+	if (hint !== 'sync-dispose' && hint !== 'async-dispose') {
+		throw new $SyntaxError('Assertion failed: `hint` must be `\'sync-dispose\'` or `\'async-dispose\'`');
+	}
+
 	if (typeof V !== 'undefined' && Type(V) !== 'Object') {
 		throw new $TypeError('`V` must be an Object'); // step 1.a
-	}
-	if (hint !== 'sync-dispose') {
-		throw new $TypeError('`hint` must be `\'sync-dispose\'`');
 	}
 
 	var method;

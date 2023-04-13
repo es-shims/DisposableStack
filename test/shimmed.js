@@ -66,5 +66,23 @@ test('shimmed', function (t) {
 		st.end();
 	});
 
+	test('AsyncDisposableStack', function (st) {
+		if (hasPropertyDescriptors) {
+			st.deepEqual(
+				Object.getOwnPropertyDescriptor(global, 'AsyncDisposableStack'),
+				{
+					configurable: true,
+					enumerable: false,
+					value: AsyncDisposableStack,
+					writable: true
+				}
+			);
+		}
+
+		runTests.AsyncDisposableStack(st, AsyncDisposableStack, hasSymbols ? Symbol.asyncDispose : null);
+
+		st.end();
+	});
+
 	t.end();
 });
