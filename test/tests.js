@@ -9,6 +9,7 @@ var isRegisteredSymbol = require('is-registered-symbol');
 var isSymbol = require('is-symbol');
 var supportsDescriptors = require('define-properties').supportsDescriptors;
 var v = require('es-value-fixtures');
+var semver = require('semver');
 
 module.exports = {
 	DisposableStack: function testDisposableStack(t, DisposableStack, symbolDispose) {
@@ -599,7 +600,11 @@ module.exports = {
 	'Symbol.dispose': function testSymbolDispose(t, symbolDispose) {
 		t.test('Symbol support', { skip: !hasSymbols() }, function (st) {
 			st.ok(isSymbol(symbolDispose), 'is a symbol');
-			st.notOk(isRegisteredSymbol(symbolDispose), 'is not a registered symbol');
+			st.notOk(
+				isRegisteredSymbol(symbolDispose),
+				'is not a registered symbol',
+				{ skip: semver.satisfies(process.version, '>= 20.4') ? 'node ships a Symbol.dispose polyfill that is registered' : false }
+			);
 
 			st.end();
 		});
@@ -616,7 +621,11 @@ module.exports = {
 	'Symbol.asyncDispose': function testSymbolAsyncDispose(t, symbolAsyncDispose) {
 		t.test('Symbol support', { skip: !hasSymbols() }, function (st) {
 			st.ok(isSymbol(symbolAsyncDispose), 'is a symbol');
-			st.notOk(isRegisteredSymbol(symbolAsyncDispose), 'is not a registered symbol');
+			st.notOk(
+				isRegisteredSymbol(symbolAsyncDispose),
+				'is not a registered symbol',
+				{ skip: semver.satisfies(process.version, '>= 20.4') ? 'node ships a Symbol.dispose polyfill that is registered' : false }
+			);
 
 			st.end();
 		});
