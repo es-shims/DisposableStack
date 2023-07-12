@@ -557,7 +557,7 @@ module.exports = {
 			st.end();
 		});
 
-		t.test('dispose', { skip: typeof Promise !== 'function' }, function (st) {
+		t.test('disposeAsync', { skip: typeof Promise !== 'function' }, function (st) {
 			var disposed = new AsyncDisposableStack();
 			return disposed.disposeAsync().then(function () {
 				st.ok(disposed.disposed, 'is disposed');
@@ -581,6 +581,20 @@ module.exports = {
 					st.equal(count, 2, '`increment` has been called exactly twice');
 
 					st.equal(instance.disposed, true, 'stack is now disposed');
+
+					// test262: test/built-ins/AsyncDisposableStack/prototype/disposeAsync/Symbol.asyncDispose-method-not-async.js
+					var resource = {
+						disposed: false
+					};
+					resource[Symbol.asyncDispose] = function () {
+						this.disposed = true;
+					};
+
+					var stack = new AsyncDisposableStack();
+					stack.use(resource);
+					return stack.disposeAsync().then(function () {
+						st.equal(resource.disposed, true, 'Expected resource to have been disposed');
+					});
 				});
 			});
 		});
