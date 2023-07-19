@@ -5,9 +5,9 @@ var GetIntrinsic = require('get-intrinsic');
 var $SyntaxError = GetIntrinsic('%SyntaxError%');
 var $Promise = GetIntrinsic('%Promise%', true);
 
-var Call = require('es-abstract/2022/Call');
-var PromiseResolve = require('es-abstract/2022/PromiseResolve');
-var Type = require('es-abstract/2022/Type');
+var Call = require('es-abstract/2023/Call');
+var PromiseResolve = require('es-abstract/2023/PromiseResolve');
+var Type = require('es-abstract/2023/Type');
 
 module.exports = function Dispose(V, hint, method) {
 	if (typeof V !== 'undefined' && Type(V) !== 'Object') {

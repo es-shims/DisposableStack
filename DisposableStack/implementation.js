@@ -7,11 +7,11 @@ var GetIntrinsic = require('get-intrinsic');
 var $ReferenceError = GetIntrinsic('%ReferenceError%');
 var $TypeError = GetIntrinsic('%TypeError%');
 
-var Call = require('es-abstract/2022/Call');
-var CreateMethodProperty = require('es-abstract/2022/CreateMethodProperty');
-var DefinePropertyOrThrow = require('es-abstract/2022/DefinePropertyOrThrow');
-var IsCallable = require('es-abstract/2022/IsCallable');
-var NormalCompletion = require('es-abstract/2022/NormalCompletion');
+var Call = require('es-abstract/2023/Call');
+var CreateMethodProperty = require('es-abstract/2023/CreateMethodProperty');
+var DefinePropertyOrThrow = require('es-abstract/2023/DefinePropertyOrThrow');
+var IsCallable = require('es-abstract/2023/IsCallable');
+var NormalCompletion = require('es-abstract/2023/NormalCompletion');
 
 var SLOT = require('internal-slot');
 var setToStringTag = require('es-set-tostringtag');

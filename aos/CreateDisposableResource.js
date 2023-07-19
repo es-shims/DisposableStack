@@ -5,8 +5,8 @@ var GetIntrinsic = require('get-intrinsic');
 var $SyntaxError = GetIntrinsic('%SyntaxError%');
 var $TypeError = GetIntrinsic('%TypeError%');
 
-var IsCallable = require('es-abstract/2022/IsCallable');
-var Type = require('es-abstract/2022/Type');
+var IsCallable = require('es-abstract/2023/IsCallable');
+var Type = require('es-abstract/2023/Type');
 
 var GetDisposeMethod = require('./GetDisposeMethod');
 

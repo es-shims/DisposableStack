@@ -5,7 +5,7 @@ var GetIntrinsic = require('get-intrinsic');
 var $SyntaxError = GetIntrinsic('%SyntaxError%');
 var $TypeError = GetIntrinsic('%TypeError%');
 
-var Type = require('es-abstract/2022/Type');
+var Type = require('es-abstract/2023/Type');
 
 var CreateDisposableResource = require('./CreateDisposableResource');
 

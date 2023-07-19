@@ -5,8 +5,8 @@ var GetIntrinsic = require('get-intrinsic');
 var $SyntaxError = GetIntrinsic('%SyntaxError%');
 var $TypeError = GetIntrinsic('%TypeError%');
 
-var GetMethod = require('es-abstract/2022/GetMethod');
-var Type = require('es-abstract/2022/Type');
+var GetMethod = require('es-abstract/2023/GetMethod');
+var Type = require('es-abstract/2023/Type');
 
 var symbolDispose = require('../Symbol.dispose/polyfill')();
 var symbolAsyncDispose = require('../Symbol.asyncDispose/polyfill')();
