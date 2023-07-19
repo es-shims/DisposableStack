@@ -23,22 +23,26 @@ module.exports = function AddDisposableResource(disposeCapability, V, hint) {
 		throw new $TypeError('Assertion failed: `method`, when present, must be a function');
 	}
 
+	if (!disposeCapability['[[DisposableResourceStack]]']) {
+		throw new $TypeError('Assertion failed: `disposeCapability.[[DisposableResourceStack]]` must not be ~empty~');
+	}
+
 	var resource;
-	if (arguments.length < 4) {
+	if (arguments.length < 4) { // step 2
 		if (V == null) {
-			return 'unused'; // step 1.a
+			return 'unused'; // step 2.a
 		}
 		if (Type(V) !== 'Object') {
-			throw new $TypeError('`V` must be an Object'); // step 1.b
+			throw new $TypeError('`V` must be an Object'); // step 2.b
 		}
-		resource = CreateDisposableResource(V, hint); // step 1.c
-	} else { // step 2
+		resource = CreateDisposableResource(V, hint); // step 2.c
+	} else { // step 3
 		if (typeof V !== 'undefined') {
-			throw new $TypeError('Assertion failed: `V` must be undefined when `method` is present'); // step 2.a
+			throw new $TypeError('Assertion failed: `V` must be undefined when `method` is present'); // step 3.a
 		}
-		resource = CreateDisposableResource(void undefined, hint, method); // step 2.b
+		resource = CreateDisposableResource(void undefined, hint, method); // step 3.b
 	}
-	$push(disposeCapability['[[DisposableResourceStack]]'], resource); // step 3
+	$push(disposeCapability['[[DisposableResourceStack]]'], resource); // step 4
 
-	return 'unused'; // step 4
+	return 'unused'; // step 5
 };
