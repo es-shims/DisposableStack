@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.1.1](https://github.com/es-shims/DisposableStack/compare/v1.1.0...v1.1.1) - 2023-07-24
+
+### Commits
+
+- [Deps] update `es-abstract` [`4251c56`](https://github.com/es-shims/DisposableStack/commit/4251c56f0d73a6b09a79eee099e0d0f270e969f5)
+- [Refactor] empty out DisposableStack slot on dispose [`4d67178`](https://github.com/es-shims/DisposableStack/commit/4d67178fc7878eb0cf0a88ee84131e0acf72c725)
+- [Tests] add some coverage [`001e23c`](https://github.com/es-shims/DisposableStack/commit/001e23cff7b94b29ef5098d2b0b256c23fb85b27)
+- [readme] fix package name [`52002d1`](https://github.com/es-shims/DisposableStack/commit/52002d1440b7fa4702e48efa44e9c64d1023c3a8)
+- [Tests] node v20.4 ships Symbol dispose polyfills that are registered symbols [`37709d2`](https://github.com/es-shims/DisposableStack/commit/37709d2aa6066952148237beaf086597f4b2aa78)
+- [Dev Deps] update `@es-shims/api`, `@ljharb/eslint-config`, `aud`, `tape` [`4716a40`](https://github.com/es-shims/DisposableStack/commit/4716a4033ad2eaff18c02a41d1b9fc7df322e7e2)
+- [Dev Deps] update `tape` [`85c5033`](https://github.com/es-shims/DisposableStack/commit/85c503392126770c984b826f281003305cf7b664)
+- [Deps] update `get-intrinsic` [`a3b63e2`](https://github.com/es-shims/DisposableStack/commit/a3b63e2de49b93b300cd900c05f35d6cb455e945)
+
 ## [v1.1.0](https://github.com/es-shims/DisposableStack/compare/v1.0.0...v1.1.0) - 2023-04-12
 
 ### Commits
