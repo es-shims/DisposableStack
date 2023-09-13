@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.1.2](https://github.com/es-shims/DisposableStack/compare/v1.1.1...v1.1.2) - 2023-09-13
+
+### Fixed
+
+- [Deps] add missing `globalthis` dep [`#3`](https://github.com/es-shims/DisposableStack/issues/3)
+
+### Commits
+
+- [Deps] update `define-properties`, `suppressed-error` [`6322b16`](https://github.com/es-shims/DisposableStack/commit/6322b1603f18a9f706c370bad6ac99e692138d6d)
+
 ## [v1.1.1](https://github.com/es-shims/DisposableStack/compare/v1.1.0...v1.1.1) - 2023-07-24
 
 ### Commits
