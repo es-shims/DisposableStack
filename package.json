@@ -70,12 +70,12 @@
 	"homepage": "https://github.com/es-shims/DisposableStack#readme",
 	"dependencies": {
 		"define-properties": "^1.2.1",
-		"es-abstract": "^1.22.1",
-		"es-set-tostringtag": "^2.0.1",
-		"get-intrinsic": "^1.2.1",
+		"es-abstract": "^1.22.3",
+		"es-set-tostringtag": "^2.0.2",
+		"get-intrinsic": "^1.2.2",
 		"globalthis": "^1.0.3",
 		"has-symbols": "^1.0.3",
-		"internal-slot": "^1.0.5",
+		"internal-slot": "^1.0.6",
 		"suppressed-error": "^1.0.2"
 	},
 	"devDependencies": {
