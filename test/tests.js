@@ -1,7 +1,7 @@
 'use strict';
 
 var forEach = require('foreach');
-var has = require('has');
+var hasOwn = require('hasown');
 var hasSymbols = require('has-symbols');
 var hasToStringTag = require('has-tostringtag');
 var inspect = require('object-inspect');
@@ -35,7 +35,7 @@ module.exports = {
 			st.equal(instance.disposed, false, 'is not disposed');
 
 			st.test('has accessors', { skip: !supportsDescriptors }, function (s2t) {
-				s2t.notOk(has(instance, 'disposed'), 'has no own `disposed` property');
+				s2t.notOk(hasOwn(instance, 'disposed'), 'has no own `disposed` property');
 
 				var desc = Object.getOwnPropertyDescriptor(DisposableStack.prototype, 'disposed');
 				s2t.deepEqual(
@@ -60,11 +60,11 @@ module.exports = {
 			});
 
 			st.test('no accessors', { skip: supportsDescriptors }, function (s2t) {
-				s2t.ok(has(instance, 'disposed'), 'has an own `disposed` property');
+				s2t.ok(hasOwn(instance, 'disposed'), 'has an own `disposed` property');
 
 				instance.dispose();
 
-				s2t.ok(has(instance, 'disposed'), 'still has an own `disposed` property');
+				s2t.ok(hasOwn(instance, 'disposed'), 'still has an own `disposed` property');
 				s2t.equal(instance.disposed, true, 'is now disposed');
 
 				s2t.end();
@@ -327,7 +327,7 @@ module.exports = {
 			st.equal(instance.disposed, false, 'is not disposed');
 
 			st.test('has accessors', { skip: !supportsDescriptors }, function (s2t) {
-				s2t.notOk(has(instance, 'disposed'), 'has no own `disposed` property');
+				s2t.notOk(hasOwn(instance, 'disposed'), 'has no own `disposed` property');
 
 				var desc = Object.getOwnPropertyDescriptor(AsyncDisposableStack.prototype, 'disposed');
 				s2t.deepEqual(
@@ -350,10 +350,10 @@ module.exports = {
 			});
 
 			st.test('no accessors', { skip: supportsDescriptors }, function (s2t) {
-				s2t.ok(has(instance, 'disposed'), 'has an own `disposed` property');
+				s2t.ok(hasOwn(instance, 'disposed'), 'has an own `disposed` property');
 
 				return instance.disposeAsync().then(function () {
-					s2t.ok(has(instance, 'disposed'), 'still has an own `disposed` property');
+					s2t.ok(hasOwn(instance, 'disposed'), 'still has an own `disposed` property');
 					s2t.equal(instance.disposed, true, 'is now disposed');
 				});
 			});
