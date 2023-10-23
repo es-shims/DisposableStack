@@ -11,6 +11,8 @@ var supportsDescriptors = require('define-properties').supportsDescriptors;
 var v = require('es-value-fixtures');
 var semver = require('semver');
 
+var brokenNodePolyfill = semver.satisfies(process.version, '^18.18 || >= 20.4');
+
 module.exports = {
 	DisposableStack: function testDisposableStack(t, DisposableStack, symbolDispose) {
 		t.equal(typeof DisposableStack, 'function', 'is a function');
@@ -617,7 +619,7 @@ module.exports = {
 			st.notOk(
 				isRegisteredSymbol(symbolDispose),
 				'is not a registered symbol',
-				{ skip: semver.satisfies(process.version, '>= 20.4') ? 'node ships a Symbol.dispose polyfill that is registered' : false }
+				{ skip: brokenNodePolyfill ? 'node ships a Symbol.dispose polyfill that is registered' : false }
 			);
 
 			st.end();
@@ -638,7 +640,7 @@ module.exports = {
 			st.notOk(
 				isRegisteredSymbol(symbolAsyncDispose),
 				'is not a registered symbol',
-				{ skip: semver.satisfies(process.version, '>= 20.4') ? 'node ships a Symbol.dispose polyfill that is registered' : false }
+				{ skip: brokenNodePolyfill ? 'node ships a Symbol.dispose polyfill that is registered' : false }
 			);
 
 			st.end();
