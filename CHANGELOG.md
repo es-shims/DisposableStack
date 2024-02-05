@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.1.3](https://github.com/es-shims/DisposableStack/compare/v1.1.2...v1.1.3) - 2024-02-04
+
+### Commits
+
+- [Refactor] use `es-errors` where possible, so things that only need those do not need `get-intrinsic` [`992e541`](https://github.com/es-shims/DisposableStack/commit/992e5411254f81ed19d7bd947dfa3b1eeb5b82f4)
+- [Dev Deps] use `hasown` instead of `has` [`07d41dc`](https://github.com/es-shims/DisposableStack/commit/07d41dc21c9668336db0dfc74ed134404fd1040a)
+- [Dev Deps] update `aud`, `has-tostringtag`, `npmignore`, `tape` [`c7601cf`](https://github.com/es-shims/DisposableStack/commit/c7601cf6b7ab3c1a621b67bfe5eb388485438cea)
+- [Deps] update `es-abstract`, `es-set-tostringtag`, `get-intrinsic`, `internal-slot` [`ae1f344`](https://github.com/es-shims/DisposableStack/commit/ae1f34464de882ca22bc46c8b3714fd5adf0baca)
+- [Tests] node v18.18 ships a broken Symbol.dispose as well [`000c7aa`](https://github.com/es-shims/DisposableStack/commit/000c7aac6f81f34c076bbfdc86dfca417b84ac9a)
+- [Deps] update `get-intrinsic`, `suppressed-error` [`e088c32`](https://github.com/es-shims/DisposableStack/commit/e088c329386e9b6191f125ff9df77e28fc823fd5)
+- [Dev Deps] update `object-inspect`, `tape` [`745057e`](https://github.com/es-shims/DisposableStack/commit/745057e6a3288eee1916bc799212c84e5586f0ca)
+- [meta] add prepublish/prepublishOnly [`f8bd449`](https://github.com/es-shims/DisposableStack/commit/f8bd449c5a0ff622861cae22828a854341909aed)
+
 ## [v1.1.2](https://github.com/es-shims/DisposableStack/compare/v1.1.1...v1.1.2) - 2023-09-13
 
 ### Fixed
