@@ -81,22 +81,22 @@
 	"devDependencies": {
 		"@es-shims/api": "^2.4.2",
 		"@ljharb/eslint-config": "^21.1.0",
-		"aud": "^2.0.3",
+		"aud": "^2.0.4",
 		"auto-changelog": "^2.4.0",
 		"es-value-fixtures": "^1.4.2",
 		"eslint": "=8.8.0",
 		"foreach": "^2.0.6",
-		"has-tostringtag": "^1.0.0",
+		"has-tostringtag": "^1.0.2",
 		"hasown": "^2.0.0",
 		"in-publish": "^2.0.1",
 		"is-registered-symbol": "^1.0.1",
 		"is-symbol": "^1.0.4",
-		"npmignore": "^0.3.0",
+		"npmignore": "^0.3.1",
 		"nyc": "^10.3.2",
 		"object-inspect": "^1.13.1",
 		"safe-publish-latest": "^2.0.0",
 		"semver": "^6.3.1",
-		"tape": "^5.7.2"
+		"tape": "^5.7.4"
 	},
 	"auto-changelog": {
 		"output": "CHANGELOG.md",
