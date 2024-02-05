@@ -4,8 +4,8 @@
 
 var GetIntrinsic = require('get-intrinsic');
 
-var $ReferenceError = GetIntrinsic('%ReferenceError%');
-var $TypeError = GetIntrinsic('%TypeError%');
+var $ReferenceError = require('es-errors/ref');
+var $TypeError = require('es-errors/type');
 var $Promise = GetIntrinsic('%Promise%', true);
 
 var AddDisposableResource = require('../aos/AddDisposableResource');

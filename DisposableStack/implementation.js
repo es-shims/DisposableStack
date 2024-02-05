@@ -2,10 +2,8 @@
 
 /* eslint no-invalid-this: 0 */
 
-var GetIntrinsic = require('get-intrinsic');
-
-var $ReferenceError = GetIntrinsic('%ReferenceError%');
-var $TypeError = GetIntrinsic('%TypeError%');
+var $ReferenceError = require('es-errors/ref');
+var $TypeError = require('es-errors/type');
 
 var Call = require('es-abstract/2023/Call');
 var CreateMethodProperty = require('es-abstract/2023/CreateMethodProperty');

@@ -2,7 +2,7 @@
 
 var GetIntrinsic = require('get-intrinsic');
 
-var $SyntaxError = GetIntrinsic('%SyntaxError%');
+var $SyntaxError = require('es-errors/syntax');
 var $Promise = GetIntrinsic('%Promise%', true);
 
 var Call = require('es-abstract/2023/Call');
