@@ -9,8 +9,8 @@ var Type = require('es-abstract/2023/Type');
 var GetDisposeMethod = require('./GetDisposeMethod');
 
 module.exports = function CreateDisposableResource(V, hint) {
-	if (hint !== 'sync-dispose' && hint !== 'async-dispose') {
-		throw new $SyntaxError('Assertion failed: `hint` must be `\'sync-dispose\'` or `\'async-dispose\'`');
+	if (hint !== 'SYNC-DISPOSE' && hint !== 'ASYNC-DISPOSE') {
+		throw new $SyntaxError('Assertion failed: `hint` must be `~SYNC-DISPOSE~` or `~ASYNC-DISPOSE~`');
 	}
 
 	if (typeof V !== 'undefined' && Type(V) !== 'Object') {

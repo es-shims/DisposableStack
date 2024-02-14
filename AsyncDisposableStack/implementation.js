@@ -92,7 +92,7 @@ CreateMethodProperty(AsyncDisposableStack.prototype, 'use', function use(value) 
 		throw new $ReferenceError('a disposed stack can not use anything new'); // step 3
 	}
 
-	AddDisposableResource(SLOT.get(asyncDisposableStack, '[[DisposeCapability]]'), value, 'async-dispose'); // step 4
+	AddDisposableResource(SLOT.get(asyncDisposableStack, '[[DisposeCapability]]'), value, 'ASYNC-DISPOSE'); // step 4
 
 	return value; // step 5
 });
@@ -114,7 +114,7 @@ CreateMethodProperty(AsyncDisposableStack.prototype, 'adopt', function adopt(val
 	});
 
 	F.value = value;
-	AddDisposableResource(SLOT.get(asyncDisposableStack, '[[DisposeCapability]]'), void undefined, 'async-dispose', F); // step 8
+	AddDisposableResource(SLOT.get(asyncDisposableStack, '[[DisposeCapability]]'), void undefined, 'ASYNC-DISPOSE', F); // step 8
 
 	return value; // step 9
 });
@@ -130,7 +130,7 @@ CreateMethodProperty(AsyncDisposableStack.prototype, 'defer', function defer(onD
 		throw new $TypeError('`onDispose` must be a function'); // step 4
 	}
 
-	AddDisposableResource(SLOT.get(asyncDisposableStack, '[[DisposeCapability]]'), void undefined, 'async-dispose', onDisposeAsync); // step 5
+	AddDisposableResource(SLOT.get(asyncDisposableStack, '[[DisposeCapability]]'), void undefined, 'ASYNC-DISPOSE', onDisposeAsync); // step 5
 });
 
 CreateMethodProperty(AsyncDisposableStack.prototype, 'move', function move() {

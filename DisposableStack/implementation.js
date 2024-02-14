@@ -30,7 +30,7 @@ var DisposableStack = function DisposableStack() {
 	) {
 		throw new $TypeError('can only be used with new');
 	}
-	SLOT.set(this, '[[DisposableState]]', 'pending');
+	SLOT.set(this, '[[DisposableState]]', 'PENDING');
 	SLOT.set(this, '[[DisposeCapability]]', NewDisposeCapability());
 };
 
@@ -39,7 +39,7 @@ var disposed = function disposed() {
 
 	SLOT.assert(disposableStack, '[[DisposableState]]'); // step 2
 
-	return SLOT.get(disposableStack, '[[DisposableState]]') === 'disposed'; // steps 3-4
+	return SLOT.get(disposableStack, '[[DisposableState]]') === 'DISPOSED'; // steps 3-4
 };
 var isDisposed = callBind(disposed);
 if (supportsDescriptors) {
@@ -53,7 +53,7 @@ if (supportsDescriptors) {
 }
 
 var markDisposed = function markDisposed(disposableStack) {
-	SLOT.set(disposableStack, '[[DisposableState]]', 'disposed'); // step 4
+	SLOT.set(disposableStack, '[[DisposableState]]', 'DISPOSED'); // step 4
 	if (!supportsDescriptors) {
 		disposableStack.disposed = true; // eslint-disable-line no-param-reassign
 	}
@@ -78,7 +78,7 @@ CreateMethodProperty(DisposableStack.prototype, 'use', function use(value) {
 		throw new $ReferenceError('a disposed stack can not use anything new'); // step 3
 	}
 
-	AddDisposableResource(SLOT.get(disposableStack, '[[DisposeCapability]]'), value, 'sync-dispose'); // step 4
+	AddDisposableResource(SLOT.get(disposableStack, '[[DisposeCapability]]'), value, 'SYNC-DISPOSE'); // step 4
 
 	return value; // step 5
 });
@@ -99,7 +99,7 @@ CreateMethodProperty(DisposableStack.prototype, 'adopt', function adopt(value, o
 		return Call(onDispose, void undefined, [value]);
 	});
 
-	AddDisposableResource(SLOT.get(disposableStack, '[[DisposeCapability]]'), void undefined, 'sync-dispose', F); // step 8
+	AddDisposableResource(SLOT.get(disposableStack, '[[DisposeCapability]]'), void undefined, 'SYNC-DISPOSE', F); // step 8
 
 	return value; // step 9
 });
@@ -115,7 +115,7 @@ CreateMethodProperty(DisposableStack.prototype, 'defer', function defer(onDispos
 		throw new $TypeError('`onDispose` must be a function'); // step 4
 	}
 
-	AddDisposableResource(SLOT.get(disposableStack, '[[DisposeCapability]]'), void undefined, 'sync-dispose', onDispose); // step 5
+	AddDisposableResource(SLOT.get(disposableStack, '[[DisposeCapability]]'), void undefined, 'SYNC-DISPOSE', onDispose); // step 5
 });
 
 CreateMethodProperty(DisposableStack.prototype, 'move', function move() {

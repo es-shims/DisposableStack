@@ -5,6 +5,8 @@ var $TypeError = require('es-errors/type');
 
 var Type = require('es-abstract/2023/Type');
 
+var isDisposeCapabilityRecord = require('./records/dispose-capability-record');
+
 var CreateDisposableResource = require('./CreateDisposableResource');
 
 var callBound = require('call-bind/callBound');
@@ -12,9 +14,11 @@ var callBound = require('call-bind/callBound');
 var $push = callBound('Array.prototype.push');
 
 module.exports = function AddDisposableResource(disposeCapability, V, hint) {
-	// assertRecord('DisposeCapability Record', disposeCapability, 'disposeCapability'); ??
-	if (hint !== 'sync-dispose' && hint !== 'async-dispose') {
-		throw new $SyntaxError('Assertion failed: `hint` must be `\'sync-dispose\'` or `\'async-dispose\'`');
+	if (!isDisposeCapabilityRecord(disposeCapability)) {
+		throw new $TypeError('Assertion failed: `disposeCapability` must be a DisposeCapability Record');
+	}
+	if (hint !== 'SYNC-DISPOSE' && hint !== 'ASYNC-DISPOSE') {
+		throw new $SyntaxError('Assertion failed: `hint` must be `~SYNC-DISPOSE~` or `~ASYNC-DISPOSE~`');
 	}
 	var method = arguments.length > 3 ? arguments[3] : void undefined;
 	if (arguments.length > 3 && typeof method !== 'function') {

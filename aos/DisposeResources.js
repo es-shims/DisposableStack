@@ -41,7 +41,7 @@ module.exports = function DisposeResources(disposeCapability, completion) {
 		}
 	}
 
-	var promise = actualHint === 'async-dispose' && PromiseResolve($Promise, completion);
+	var promise = actualHint === 'ASYNC-DISPOSE' && PromiseResolve($Promise, completion);
 
 	var rejecter = function (e) {
 		if (completion.type() === 'throw') { // step 2.b.i
@@ -55,7 +55,7 @@ module.exports = function DisposeResources(disposeCapability, completion) {
 		}
 	};
 
-	var getPromise = actualHint === 'async-dispose' && function getPromise(resource) {
+	var getPromise = actualHint === 'ASYNC-DISPOSE' && function getPromise(resource) {
 		return $then(
 			promise,
 			function () {
@@ -65,7 +65,7 @@ module.exports = function DisposeResources(disposeCapability, completion) {
 					resource['[[DisposeMethod]]']
 				);
 				if (!result) {
-					throw new $SyntaxError('Assertion failed: non-`async-dispose` resource returned a promise from Dispose');
+					throw new $SyntaxError('Assertion failed: non-`~ASYNC-DISPOSE~` resource returned a promise from Dispose');
 				}
 				return $then(result, NormalCompletion);
 			},
@@ -74,7 +74,7 @@ module.exports = function DisposeResources(disposeCapability, completion) {
 	};
 
 	for (var i = stack.length - 1; i >= 0; i -= 1) { // step 2
-		if (actualHint === 'async-dispose') {
+		if (actualHint === 'ASYNC-DISPOSE') {
 			promise = getPromise(stack[i]);
 		} else {
 			var resource = stack[i];
@@ -85,7 +85,7 @@ module.exports = function DisposeResources(disposeCapability, completion) {
 					resource['[[DisposeMethod]]']
 				);
 				if (result) {
-					throw new $SyntaxError('Assertion failed: `sync-dispose` resource returned something from Dispose');
+					throw new $SyntaxError('Assertion failed: `~SYNC-DISPOSE~` resource returned something from Dispose');
 				}
 			} catch (e) {
 				rejecter(e);
@@ -96,5 +96,5 @@ module.exports = function DisposeResources(disposeCapability, completion) {
 	// eslint-disable-next-line no-param-reassign
 	disposeCapability['[[DisposableResourceStack]]'] = null; // step 3
 
-	return actualHint === 'async-dispose' ? promise : completion; // step 4
+	return actualHint === 'ASYNC-DISPOSE' ? promise : completion; // step 4
 };

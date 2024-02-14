@@ -13,12 +13,12 @@ module.exports = function GetDisposeMethod(V, hint) {
 	if (Type(V) !== 'Object') {
 		throw new $TypeError('`V` must be an Object');
 	}
-	if (hint !== 'sync-dispose' && hint !== 'async-dispose') {
-		throw new $SyntaxError('Assertion failed: `hint` must be `\'sync-dispose\'` or `\'async-dispose\'`');
+	if (hint !== 'SYNC-DISPOSE' && hint !== 'ASYNC-DISPOSE') {
+		throw new $SyntaxError('Assertion failed: `hint` must be `~SYNC-DISPOSE~` or `~ASYNC-DISPOSE~`');
 	}
 
 	var method;
-	if (hint === 'async-dispose' && symbolAsyncDispose) { // step 1
+	if (hint === 'ASYNC-DISPOSE' && symbolAsyncDispose) { // step 1
 		method = GetMethod(V, symbolAsyncDispose); // step 1.a
 	}
 

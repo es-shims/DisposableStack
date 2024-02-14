@@ -13,15 +13,15 @@ module.exports = function Dispose(V, hint, method) {
 	if (typeof V !== 'undefined' && Type(V) !== 'Object') {
 		throw new $SyntaxError('Assertion failed: `V` must be `undefined` or an Object');
 	}
-	if (hint !== 'sync-dispose' && hint !== 'async-dispose') {
-		throw new $SyntaxError('Assertion failed: `hint` must be `\'sync-dispose\'` or `\'async-dispose\'`');
+	if (hint !== 'SYNC-DISPOSE' && hint !== 'ASYNC-DISPOSE') {
+		throw new $SyntaxError('Assertion failed: `hint` must be `~SYNC-DISPOSE~` or `~ASYNC-DISPOSE~`');
 	}
 	if (typeof method !== 'undefined' && typeof method !== 'function') {
 		throw new $SyntaxError('Assertion failed: `method` must be `undefined` or a function');
 	}
 
 	var result = Call(method, V);
-	if (hint === 'async-dispose') {
+	if (hint === 'ASYNC-DISPOSE') {
 		return PromiseResolve($Promise, result);
 	}
 };
