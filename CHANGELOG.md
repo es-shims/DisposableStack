@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.1.4](https://github.com/es-shims/DisposableStack/compare/v1.1.3...v1.1.4) - 2024-03-22
+
+### Commits
+
+- [Refactor] uppercase spec enum values; check dispose records [`6236229`](https://github.com/es-shims/DisposableStack/commit/623622914cd5a915a177aba05cce72725634c236)
+- [Refactor] update AOs to align with latest spec PR [`3b1c01c`](https://github.com/es-shims/DisposableStack/commit/3b1c01cbf82a80886ea1da6cf579ea7c00a8b417)
+- [Deps] update `es-abstract`, `es-set-tostringtag`, `hasown` [`07297bb`](https://github.com/es-shims/DisposableStack/commit/07297bb098ddfb06f26472f1b8c68255c0204ab0)
+- [actions] remove redundant finisher [`63a4ac3`](https://github.com/es-shims/DisposableStack/commit/63a4ac3ed1ebfcc854ac30c125e9d8e3703f9878)
+- [Deps] update `es-abstract`, `es-errors`, `get-intrinsic`, `internal-slot` [`aeed35b`](https://github.com/es-shims/DisposableStack/commit/aeed35b9af3a7b979fb545430ccc3a606c3c392b)
+- [meta] add missing `engines.node` [`d2972ee`](https://github.com/es-shims/DisposableStack/commit/d2972eec3115c7a9808da26626bca9776d481783)
+- [Dev Deps] update `tape` [`ca6b77d`](https://github.com/es-shims/DisposableStack/commit/ca6b77dede3919aaefbd76ee2f1f54c67d1df2f4)
+- [Dev Deps] update `hasown` [`d9407f0`](https://github.com/es-shims/DisposableStack/commit/d9407f033a42f6a2ec5ae8e2b017fbb9d0307e41)
+
 ## [v1.1.3](https://github.com/es-shims/DisposableStack/compare/v1.1.2...v1.1.3) - 2024-02-04
 
 ### Commits
