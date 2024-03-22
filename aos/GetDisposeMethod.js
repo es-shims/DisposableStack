@@ -3,6 +3,7 @@
 var $SyntaxError = require('es-errors/syntax');
 var $TypeError = require('es-errors/type');
 
+var Call = require('es-abstract/2024/Call');
 var GetMethod = require('es-abstract/2024/GetMethod');
 var Type = require('es-abstract/2024/Type');
 
@@ -27,6 +28,14 @@ module.exports = function GetDisposeMethod(V, hint) {
 			throw new $SyntaxError('`Symbol.dispose` is not supported');
 		}
 		method = GetMethod(V, symbolDispose); // step 1.b.i, 2.a
+
+		if (typeof method !== 'undefined') { // step 1.b.ii
+			return function () { // step 1.b.ii.1, 1.b.ii.3
+				// eslint-disable-next-line no-invalid-this
+				var O = this; // step 1.b.ii.1.a
+				Call(method, O); // step // step 1.b.ii.1.b
+			};
+		}
 	}
 
 	return method; // step 3

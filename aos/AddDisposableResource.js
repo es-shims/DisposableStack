@@ -3,8 +3,6 @@
 var $SyntaxError = require('es-errors/syntax');
 var $TypeError = require('es-errors/type');
 
-var Type = require('es-abstract/2024/Type');
-
 var isDisposeCapabilityRecord = require('./records/dispose-capability-record');
 
 var CreateDisposableResource = require('./CreateDisposableResource');
@@ -26,25 +24,22 @@ module.exports = function AddDisposableResource(disposeCapability, V, hint) {
 	}
 
 	if (!disposeCapability['[[DisposableResourceStack]]']) {
-		throw new $TypeError('Assertion failed: `disposeCapability.[[DisposableResourceStack]]` must not be ~empty~');
+		throw new $TypeError('Assertion failed: `disposeCapability.[[DisposableResourceStack]]` must not be ~EMPTY~');
 	}
 
 	var resource;
-	if (arguments.length < 4) { // step 2
-		if (V == null) {
-			return 'unused'; // step 2.a
+	if (arguments.length < 4) { // step 1
+		if (V == null && hint === 'SYNC_DISPOSE') {
+			return 'UNUSED'; // step 1.a
 		}
-		if (Type(V) !== 'Object') {
-			throw new $TypeError('`V` must be an Object'); // step 2.b
-		}
-		resource = CreateDisposableResource(V, hint); // step 2.c
-	} else { // step 3
+		resource = CreateDisposableResource(V, hint); // step 1.c
+	} else { // step 2
 		if (typeof V !== 'undefined') {
-			throw new $TypeError('Assertion failed: `V` must be undefined when `method` is present'); // step 3.a
+			throw new $TypeError('Assertion failed: `V` must be undefined when `method` is present'); // step 2.a
 		}
-		resource = CreateDisposableResource(void undefined, hint, method); // step 3.b
+		resource = CreateDisposableResource(void undefined, hint, method); // step 2.b
 	}
-	$push(disposeCapability['[[DisposableResourceStack]]'], resource); // step 4
+	$push(disposeCapability['[[DisposableResourceStack]]'], resource); // step 3
 
-	return 'unused'; // step 5
+	return 'UNUSED'; // step 4
 };

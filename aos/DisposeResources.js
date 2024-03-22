@@ -26,7 +26,7 @@ module.exports = function DisposeResources(disposeCapability, completion) {
 	var stack = disposeCapability['[[DisposableResourceStack]]'];
 
 	if (!stack) {
-		throw new $TypeError('Assertion failed: `disposeCapability.[[DisposableResourceStack]]` must not be ~empty~'); // step 1
+		throw new $TypeError('Assertion failed: `disposeCapability.[[DisposableResourceStack]]` must not be ~EMPTY~'); // step 1
 	}
 
 	// for DisposableStack or AsyncDisposableStack, all are sync, or all are async.

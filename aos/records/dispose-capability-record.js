@@ -12,7 +12,7 @@ module.exports = function isDisposeCapabilityRecord(x) {
 		&& hasOwn(x, '[[DisposableResourceStack]]')
 		&& isArray(x['[[DisposableResourceStack]]'])
 		&& (
-			x['[[DisposableResourceStack]]'] === 0
+			x['[[DisposableResourceStack]]'].length === 0
 			|| every(x['[[DisposableResourceStack]]'], isDisposableResourceRecord)
 		);
 };

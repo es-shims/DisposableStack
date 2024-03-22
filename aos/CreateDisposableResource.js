@@ -13,18 +13,22 @@ module.exports = function CreateDisposableResource(V, hint) {
 		throw new $SyntaxError('Assertion failed: `hint` must be `~SYNC-DISPOSE~` or `~ASYNC-DISPOSE~`');
 	}
 
-	if (typeof V !== 'undefined' && Type(V) !== 'Object') {
-		throw new $TypeError('`V` must be an Object'); // step 1.a
-	}
-
 	var method;
 	if (arguments.length < 3) { // step 1
-		if (typeof V === 'undefined') {
-			throw new $TypeError('`V` must not be `undefined` when `method` is not provided'); // step 1.a
-		}
-		method = GetDisposeMethod(V, hint); // step 1.b
-		if (typeof method === 'undefined') {
-			throw new $TypeError('dispose method must not be `undefined` on `V` when an object `V` is provided'); // step 1.a
+		if (V == null) { // step 1.a
+			// eslint-disable-next-line no-param-reassign
+			V = void undefined; // step 1.a.i
+			method = void undefined; // step 1.a.ii
+		} else {
+			if (typeof V !== 'undefined' && Type(V) !== 'Object') {
+				throw new $TypeError('`V` must be an Object, or `null` or `undefined`'); // step 1.b.i
+			}
+
+			method = GetDisposeMethod(V, hint); // step 1.b.ii
+
+			if (typeof method === 'undefined') {
+				throw new $TypeError('dispose method must not be `undefined` on `V` when an object `V` is provided'); // step 1.b.i
+			}
 		}
 	} else { // step 2
 		method = arguments[2];

@@ -10,5 +10,5 @@ module.exports = function isDisposeCapabilityRecord(x) {
 			|| ($Object(x['[[ResourceValue]]']) === x['[[ResourceValue]]'])
 		)
 		&& (x['[[Hint]]'] === 'SYNC-DISPOSE' || x['[[Hint]]'] === 'ASYNC-DISPOSE')
-		&& typeof x['[[DisposeMethod]]'] === 'function';
+		&& (typeof x['[[DisposeMethod]]'] === 'function' || typeof x['[[DisposeMethod]]'] === 'undefined');
 };

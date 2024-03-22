@@ -20,8 +20,9 @@ module.exports = function Dispose(V, hint, method) {
 		throw new $SyntaxError('Assertion failed: `method` must be `undefined` or a function');
 	}
 
-	var result = Call(method, V);
+	var result = typeof method === 'undefined' ? method : Call(method, V); // step 1, 2
+
 	if (hint === 'ASYNC-DISPOSE') {
-		return PromiseResolve($Promise, result);
+		return PromiseResolve($Promise, result); // step 3.a, 4
 	}
 };
