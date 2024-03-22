@@ -5,11 +5,11 @@
 var $ReferenceError = require('es-errors/ref');
 var $TypeError = require('es-errors/type');
 
-var Call = require('es-abstract/2023/Call');
+var Call = require('es-abstract/2024/Call');
 var CreateMethodProperty = require('es-abstract/2023/CreateMethodProperty');
-var DefinePropertyOrThrow = require('es-abstract/2023/DefinePropertyOrThrow');
-var IsCallable = require('es-abstract/2023/IsCallable');
-var NormalCompletion = require('es-abstract/2023/NormalCompletion');
+var DefinePropertyOrThrow = require('es-abstract/2024/DefinePropertyOrThrow');
+var IsCallable = require('es-abstract/2024/IsCallable');
+var NormalCompletion = require('es-abstract/2024/NormalCompletion');
 
 var SLOT = require('internal-slot');
 var setToStringTag = require('es-set-tostringtag');

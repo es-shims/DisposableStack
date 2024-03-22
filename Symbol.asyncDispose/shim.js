@@ -1,7 +1,7 @@
 'use strict';
 
 var hasSymbols = require('has-symbols');
-var DefinePropertyOrThrow = require('es-abstract/2023/DefinePropertyOrThrow');
+var DefinePropertyOrThrow = require('es-abstract/2024/DefinePropertyOrThrow');
 
 var polyfill = require('./polyfill');
 

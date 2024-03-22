@@ -3,8 +3,8 @@
 var $SyntaxError = require('es-errors/syntax');
 var $TypeError = require('es-errors/type');
 
-var GetMethod = require('es-abstract/2023/GetMethod');
-var Type = require('es-abstract/2023/Type');
+var GetMethod = require('es-abstract/2024/GetMethod');
+var Type = require('es-abstract/2024/Type');
 
 var symbolDispose = require('../Symbol.dispose/polyfill')();
 var symbolAsyncDispose = require('../Symbol.asyncDispose/polyfill')();

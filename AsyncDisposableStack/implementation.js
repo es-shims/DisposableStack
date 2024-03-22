@@ -9,14 +9,14 @@ var $TypeError = require('es-errors/type');
 var $Promise = GetIntrinsic('%Promise%', true);
 
 var AddDisposableResource = require('../aos/AddDisposableResource');
-var Call = require('es-abstract/2023/Call');
+var Call = require('es-abstract/2024/Call');
 var CreateMethodProperty = require('es-abstract/2023/CreateMethodProperty');
-var DefinePropertyOrThrow = require('es-abstract/2023/DefinePropertyOrThrow');
+var DefinePropertyOrThrow = require('es-abstract/2024/DefinePropertyOrThrow');
 var DisposeResources = require('../aos/DisposeResources');
-var IsCallable = require('es-abstract/2023/IsCallable');
+var IsCallable = require('es-abstract/2024/IsCallable');
 var NewDisposeCapability = require('../aos/NewDisposeCapability');
-var NormalCompletion = require('es-abstract/2023/NormalCompletion');
-var PromiseResolve = require('es-abstract/2023/PromiseResolve');
+var NormalCompletion = require('es-abstract/2024/NormalCompletion');
+var PromiseResolve = require('es-abstract/2024/PromiseResolve');
 
 var SLOT = require('internal-slot');
 var setToStringTag = require('es-set-tostringtag');

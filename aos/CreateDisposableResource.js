@@ -3,8 +3,8 @@
 var $SyntaxError = require('es-errors/syntax');
 var $TypeError = require('es-errors/type');
 
-var IsCallable = require('es-abstract/2023/IsCallable');
-var Type = require('es-abstract/2023/Type');
+var IsCallable = require('es-abstract/2024/IsCallable');
+var Type = require('es-abstract/2024/Type');
 
 var GetDisposeMethod = require('./GetDisposeMethod');
 

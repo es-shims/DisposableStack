@@ -3,7 +3,7 @@
 var $SyntaxError = require('es-errors/syntax');
 var $TypeError = require('es-errors/type');
 
-var Type = require('es-abstract/2023/Type');
+var Type = require('es-abstract/2024/Type');
 
 var isDisposeCapabilityRecord = require('./records/dispose-capability-record');
 
