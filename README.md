@@ -42,7 +42,7 @@ const asyncStack = new AsyncDisposableStack();
 
 stack.dispose();
 
-asyncStack.dispose();
+await asyncStack.disposeAsync();
 
 // assert disposal was done
 ```
