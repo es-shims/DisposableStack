@@ -81,7 +81,7 @@
 		"suppressed-error": "^1.0.3"
 	},
 	"devDependencies": {
-		"@es-shims/api": "^2.4.2",
+		"@es-shims/api": "^2.5.0",
 		"@ljharb/eslint-config": "^21.1.0",
 		"aud": "^2.0.4",
 		"auto-changelog": "^2.4.0",
