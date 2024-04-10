@@ -28,6 +28,7 @@
 				"GetMethod",
 				"IsCallable",
 				"NewDisposeCapability",
+				"NewPromiseCapability",
 				"NormalCompletion",
 				"PromiseResolve",
 				"ThrowCompletion",
