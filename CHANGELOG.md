@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.1.5](https://github.com/es-shims/DisposableStack/compare/v1.1.4...v1.1.5) - 2024-05-14
+
+### Fixed
+
+- [Deps] add missing `call-bind` [`#6`](https://github.com/es-shims/DisposableStack/issues/6)
+- [readme] Fix documentation for AsyncDisposableStack [`#4`](https://github.com/es-shims/DisposableStack/issues/4)
+
+### Commits
+
+- [Refactor] sync dispose used in an async dispose should reject, not throw [`f27d883`](https://github.com/es-shims/DisposableStack/commit/f27d8836c6b9c8dbac7397bf0279b4596e8004fd)
+- [Deps] update `globalthis` [`4e6e8f4`](https://github.com/es-shims/DisposableStack/commit/4e6e8f4056857d1a004f069ce502b54132748378)
+- [Deps] update `es-abstract` [`525559f`](https://github.com/es-shims/DisposableStack/commit/525559f10a96001d256c56ada5d176d6026740db)
+- [Dev Deps] update `@es-shims/api` [`270fc1d`](https://github.com/es-shims/DisposableStack/commit/270fc1d2eb7afc5450a19f59a6919df80a7fdf22)
+- [Dev Deps] add missing `has-property-descriptors` [`5d3ca89`](https://github.com/es-shims/DisposableStack/commit/5d3ca8921f7de8ed17787b5ec31b163f99c56249)
+
 ## [v1.1.4](https://github.com/es-shims/DisposableStack/compare/v1.1.3...v1.1.4) - 2024-03-22
 
 ### Commits
