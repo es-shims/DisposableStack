@@ -173,7 +173,7 @@ module.exports = {
 
 			forEach(v.nonFunctions, function (nonFunction) {
 				st['throws'](
-					function () { instance.adopt(nonFunction); },
+					function () { instance.adopt(undefined, nonFunction); },
 					TypeError,
 					'throws on a nonfunction: ' + inspect(nonFunction)
 				);
