@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.1.6](https://github.com/es-shims/DisposableStack/compare/v1.1.5...v1.1.6) - 2024-05-28
+
+### Fixed
+
+- [Fix] `.disposed` should be nonenumerable [`#8`](https://github.com/es-shims/DisposableStack/issues/8)
+
+### Commits
+
+- [Tests] Update nonFunctions adopt test [`2f7eb6e`](https://github.com/es-shims/DisposableStack/commit/2f7eb6e13ea986fa5d4404c60782a84151f9a15e)
+- [Dev Deps] update `@ljharb/eslint-config` [`fa59c73`](https://github.com/es-shims/DisposableStack/commit/fa59c73b0e5191e8b403d582490bbcdc8ffa16ad)
+
 ## [v1.1.5](https://github.com/es-shims/DisposableStack/compare/v1.1.4...v1.1.5) - 2024-05-14
 
 ### Fixed
