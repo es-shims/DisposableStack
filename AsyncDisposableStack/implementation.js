@@ -51,7 +51,7 @@ var isDisposed = callBind(disposed);
 if (supportsDescriptors) {
 	DefinePropertyOrThrow(AsyncDisposableStack.prototype, 'disposed', {
 		'[[Configurable]]': true,
-		'[[Enumerable]]': true,
+		'[[Enumerable]]': false,
 		'[[Get]]': disposed
 	});
 } else {

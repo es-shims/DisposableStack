@@ -44,7 +44,7 @@ module.exports = {
 					desc,
 					{
 						configurable: true,
-						enumerable: true,
+						enumerable: false,
 						get: desc.get,
 						set: undefined
 					},
@@ -336,7 +336,7 @@ module.exports = {
 					desc,
 					{
 						configurable: true,
-						enumerable: true,
+						enumerable: false,
 						get: desc.get,
 						set: undefined
 					},
