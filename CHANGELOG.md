@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.1.7](https://github.com/es-shims/DisposableStack/compare/v1.1.6...v1.1.7) - 2024-12-12
+
+### Commits
+
+- [actions] split out node 10-20, and 20+ [`b0573d4`](https://github.com/es-shims/DisposableStack/commit/b0573d4136f3f7fbc1c88a87fed5fdade60e1e13)
+- [Dev Deps] update `@es-shims/api`, `auto-changelog`, `es-value-fixtures`, `is-registered-symbol`, `is-symbol`, `object-inspect`, `tape` [`c93a7ea`](https://github.com/es-shims/DisposableStack/commit/c93a7ea0011e19d10752026445413e3a3d1addf2)
+- [Deps] update `call-bind`, `es-abstract`, `get-intrinsic`, `has-symbols` [`75a8306`](https://github.com/es-shims/DisposableStack/commit/75a8306b8043f2e0963b30ed2dfbcb2ae0b07bb0)
+- [Refactor] use `call-bound` directly [`6b4ce0d`](https://github.com/es-shims/DisposableStack/commit/6b4ce0d2ec02fd7f96d0dc16d99a4c0d18770145)
+- [Dev Deps] update `@es-shims/api` [`259c92f`](https://github.com/es-shims/DisposableStack/commit/259c92fcfd1024fcfadc107cca0bb1bac1fa257b)
+- [Tests] replace `aud` with `npm audit` [`0e2d45a`](https://github.com/es-shims/DisposableStack/commit/0e2d45af4507bfc996a339e4d71c060fbca065c6)
+- [Dev Deps] add missing peer dep [`bb29720`](https://github.com/es-shims/DisposableStack/commit/bb29720d3df94bc89f014678163e2a3bfdea936b)
+
 ## [v1.1.6](https://github.com/es-shims/DisposableStack/compare/v1.1.5...v1.1.6) - 2024-05-28
 
 ### Fixed
