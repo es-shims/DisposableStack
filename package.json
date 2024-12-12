@@ -82,23 +82,23 @@
 		"suppressed-error": "^1.0.3"
 	},
 	"devDependencies": {
-		"@es-shims/api": "^2.5.0",
+		"@es-shims/api": "^2.5.1",
 		"@ljharb/eslint-config": "^21.1.1",
-		"auto-changelog": "^2.4.0",
-		"es-value-fixtures": "^1.4.2",
+		"auto-changelog": "^2.5.0",
+		"es-value-fixtures": "^1.5.0",
 		"eslint": "=8.8.0",
 		"foreach": "^2.0.6",
 		"has-property-descriptors": "^1.0.2",
 		"has-tostringtag": "^1.0.2",
 		"in-publish": "^2.0.1",
-		"is-registered-symbol": "^1.0.1",
-		"is-symbol": "^1.0.4",
+		"is-registered-symbol": "^1.1.0",
+		"is-symbol": "^1.1.0",
 		"npmignore": "^0.3.1",
 		"nyc": "^10.3.2",
-		"object-inspect": "^1.13.1",
+		"object-inspect": "^1.13.3",
 		"safe-publish-latest": "^2.0.0",
 		"semver": "^6.3.1",
-		"tape": "^5.7.5"
+		"tape": "^5.9.0"
 	},
 	"auto-changelog": {
 		"output": "CHANGELOG.md",
