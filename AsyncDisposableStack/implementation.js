@@ -22,7 +22,7 @@ var SLOT = require('internal-slot');
 var setToStringTag = require('es-set-tostringtag');
 var supportsDescriptors = require('define-properties').supportsDescriptors;
 var callBind = require('call-bind');
-var callBound = require('call-bind/callBound');
+var callBound = require('call-bound');
 
 var $then = callBound('Promise.prototype.then', true);
 

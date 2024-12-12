@@ -6,7 +6,7 @@ var $SyntaxError = require('es-errors/syntax');
 var $TypeError = require('es-errors/type');
 var $Promise = GetIntrinsic('%Promise%', true);
 
-var callBound = require('call-bind/callBound');
+var callBound = require('call-bound');
 var $then = callBound('Promise.prototype.then', true);
 
 var CompletionRecord = require('es-abstract/2024/CompletionRecord');

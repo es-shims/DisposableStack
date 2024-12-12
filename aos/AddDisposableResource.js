@@ -7,7 +7,7 @@ var isDisposeCapabilityRecord = require('./records/dispose-capability-record');
 
 var CreateDisposableResource = require('./CreateDisposableResource');
 
-var callBound = require('call-bind/callBound');
+var callBound = require('call-bound');
 
 var $push = callBound('Array.prototype.push');
 
