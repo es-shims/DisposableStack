@@ -122,6 +122,20 @@ module.exports = {
 				st.equal(e, throwSentinel, 'throws `throwSentinel`');
 			}
 
+			{ // eslint-disable-line no-lone-blocks
+				// https://github.com/tc39/test262/pull/4409
+				var instance3 = new DisposableStack();
+				count = 0;
+				var reentry = {};
+				reentry[symbolDispose] = function () {
+					count += 1;
+					instance3.dispose();
+				};
+				instance3.use(reentry);
+				instance3.dispose();
+				st.equal(count, 1, 'does not call the disposable twice');
+			}
+
 			st.end();
 		});
 
