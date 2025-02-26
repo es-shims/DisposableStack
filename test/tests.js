@@ -10,6 +10,8 @@ var isSymbol = require('is-symbol');
 var supportsDescriptors = require('define-properties').supportsDescriptors;
 var v = require('es-value-fixtures');
 var semver = require('semver');
+var gOPD = require('gopd');
+var defineAccessorProperty = require('define-accessor-property');
 
 var brokenNodePolyfill = semver.satisfies(process.version, '^18.18 || >= 20.4');
 
@@ -626,6 +628,32 @@ module.exports = {
 
 			st.end();
 		});
+
+		t.test(
+			'test262: test/built-ins/AsyncDisposableStack/prototype-from-newtarget-abrupt',
+			{
+				skip: !gOPD
+					|| typeof Reflect === 'undefined'
+					|| !Reflect.construct
+			},
+			function (st) {
+				var calls = 0;
+				var newTarget = function () {}.bind(null); // eslint-disable-line no-extra-bind
+				defineAccessorProperty(newTarget, 'prototype', {
+					configurable: true,
+					get: function () {
+						calls += 1;
+						throw new EvalError();
+					}
+				});
+
+				st['throws'](function () { Reflect.construct(AsyncDisposableStack, [], newTarget); }, EvalError);
+
+				st.equal(calls, 1);
+
+				st.end();
+			}
+		);
 	},
 	'Symbol.dispose': function testSymbolDispose(t, symbolDispose) {
 		t.test('Symbol support', { skip: !hasSymbols() }, function (st) {
