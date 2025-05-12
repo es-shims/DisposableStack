@@ -431,7 +431,7 @@ module.exports = {
 				{ fn: onDispose1, count: 1, args: [null] }
 			], 'disposes the adopted things in reverse order, and only once');
 
-			st.test('multiple errors during disposal', function (s2t) {
+			st.test('multiple errors during disposal', { skip: !symbolDispose }, function (s2t) {
 				var badDisposable = {};
 				badDisposable[symbolDispose] = throwsSentinel;
 
