@@ -12,8 +12,14 @@ var v = require('es-value-fixtures');
 var semver = require('semver');
 var gOPD = require('gopd');
 var defineAccessorProperty = require('define-accessor-property');
+var SuppressedError = require('suppressed-error/polyfill')();
 
 var brokenNodePolyfill = semver.satisfies(process.version, '^18.18 || >= 20.4');
+
+var throwSentinel = { 'throws': true };
+var throwsSentinel = function throwsSentinel() {
+	throw throwSentinel;
+};
 
 module.exports = {
 	DisposableStack: function testDisposableStack(t, DisposableStack, symbolDispose) {
@@ -28,10 +34,12 @@ module.exports = {
 			'throws a TypeError if not called with `new`'
 		);
 
-		var throwSentinel = { 'throws': true };
-		var throwsSentinel = function throwsSentinel() {
-			throw throwSentinel;
-		};
+		t.equal(
+			DisposableStack.prototype.constructor,
+			DisposableStack,
+			'has the correct constructor, if present',
+			{ skip: !hasOwn(DisposableStack.prototype, 'constructor') }
+		);
 
 		t.test('disposed', function (st) {
 			var instance = new DisposableStack();
@@ -138,6 +146,31 @@ module.exports = {
 				st.equal(count, 1, 'does not call the disposable twice');
 			}
 
+			var args = [];
+			var resource1 = {};
+			resource1[symbolDispose] = function () {
+				args.push({
+					res: this,
+					count: arguments.length,
+					args: Array.prototype.slice.call(arguments)
+				});
+			};
+			var resource2 = {};
+			resource2[symbolDispose] = resource1[symbolDispose];
+
+			var instance4 = new DisposableStack();
+			st.equal(instance4.use(resource1), resource1, 'returns the resource');
+			st.equal(instance4.use(resource2), resource2, 'returns the resource');
+
+			st.deepEqual(args, [], 'does not call the disposable immediately');
+
+			instance4.dispose();
+
+			st.deepEqual(args, [
+				{ res: resource2, count: 0, args: [] },
+				{ res: resource1, count: 0, args: [] }
+			], 'disposes the used things in reverse order');
+
 			st.end();
 		});
 
@@ -181,6 +214,35 @@ module.exports = {
 				st.equal(e, throwSentinel, 'throws `throwSentinel`');
 			}
 
+			var args = [];
+			var onDispose1 = function onDispose() {
+				args.push({
+					fn: onDispose1,
+					count: arguments.length,
+					args: Array.prototype.slice.call(arguments)
+				});
+			};
+			var onDispose2 = function onDispose() {
+				args.push({
+					fn: onDispose2,
+					count: arguments.length,
+					args: Array.prototype.slice.call(arguments)
+				});
+			};
+
+			var instance3 = new DisposableStack();
+			st.equal(instance3.defer(onDispose1), undefined, 'returns undefined');
+			instance3.defer(onDispose2);
+
+			st.deepEqual(args, [], 'does not call the disposable immediately');
+
+			instance3.dispose();
+
+			st.deepEqual(args, [
+				{ fn: onDispose2, count: 0, args: [] },
+				{ fn: onDispose1, count: 0, args: [] }
+			], 'disposes the adopted things in reverse order');
+
 			st.end();
 		});
 
@@ -204,9 +266,9 @@ module.exports = {
 			};
 
 			var sentinel = { sentinel: true };
-			instance.adopt(undefined, onDispose);
-			instance.adopt(null, onDispose);
-			instance.adopt(sentinel, onDispose);
+			st.equal(instance.adopt(undefined, onDispose), undefined, 'returns resource');
+			st.equal(instance.adopt(null, onDispose), null, 'returns resource');
+			st.equal(instance.adopt(sentinel, onDispose), sentinel, 'returns resource');
 
 			st.deepEqual(args, [], 'does not call the disposable immediately');
 
@@ -261,6 +323,7 @@ module.exports = {
 			st.equal(instance.disposed, false, 'old stack is not disposed');
 
 			var newStack = instance.move();
+			st.ok(newStack instanceof DisposableStack, 'returns a new DisposableStack');
 
 			st.equal(count, 0, '`increment` has not yet been called');
 
@@ -276,8 +339,44 @@ module.exports = {
 			st.end();
 		});
 
+		t.test('test262: test/built-ins/DisposableStack/prototype/use/adds-value', { skip: !symbolDispose }, function (st) {
+			var stack = new DisposableStack();
+			var resource = { disposed: false };
+			resource[symbolDispose] = function () {
+				this.disposed = true;
+			};
+			stack.use(resource);
+			stack.dispose();
+			st.equal(resource.disposed, true, 'Expected resource to have been disposed');
+
+			st.end();
+		});
+
 		t.test('Symbol.dispose', { skip: !symbolDispose }, function (st) {
 			st.equal(DisposableStack.prototype[symbolDispose], DisposableStack.prototype.dispose, 'is the same function as `dispose`');
+
+			st.test(
+				'test262: test/built-ins/DisposableStack/prototype/use/gets-value-Symbol.dispose-property-once',
+				{ skip: !supportsDescriptors },
+				function (s2t) {
+					var stack = new DisposableStack();
+					var resource = { disposeReadCount: 0 };
+
+					Object.defineProperty(resource, symbolDispose, {
+						configurable: true,
+						enumerable: false,
+						get: function () {
+							this.disposeReadCount += 1;
+							return function () {};
+						}
+					});
+					stack.use(resource);
+					stack.dispose();
+					s2t.equal(resource.disposeReadCount, 1, 'Expected [Symbol.dispose] to have been read only once');
+
+					s2t.end();
+				}
+			);
 
 			st.end();
 		});
@@ -302,9 +401,61 @@ module.exports = {
 
 			instance.dispose();
 
-			st.equal(count, 2, '`increment` has been called exactly twice');
+			var args = [];
+			var onDispose1 = function onDispose() {
+				args.push({
+					fn: onDispose1,
+					count: arguments.length,
+					args: Array.prototype.slice.call(arguments)
+				});
+			};
+			var onDispose2 = function onDispose() {
+				args.push({
+					fn: onDispose2,
+					count: arguments.length,
+					args: Array.prototype.slice.call(arguments)
+				});
+			};
 
-			st.equal(instance.disposed, true, 'stack is now disposed');
+			var instance2 = new DisposableStack();
+			instance2.adopt(null, onDispose1);
+			instance2.defer(onDispose2);
+
+			st.deepEqual(args, [], 'does not call the disposable immediately');
+
+			instance2.dispose();
+			instance2.dispose();
+
+			st.deepEqual(args, [
+				{ fn: onDispose2, count: 0, args: [] },
+				{ fn: onDispose1, count: 1, args: [null] }
+			], 'disposes the adopted things in reverse order, and only once');
+
+			st.test('multiple errors during disposal', function (s2t) {
+				var badDisposable = {};
+				badDisposable[symbolDispose] = throwsSentinel;
+
+				var sentinel2 = { sentinel2: true };
+				var sentinel3 = { sentinel3: true };
+
+				var instance3 = new DisposableStack();
+				instance3.use(badDisposable);
+				instance3.adopt(null, function () { throw sentinel2; });
+				instance3.adopt(undefined, function () { throw sentinel3; });
+
+				try {
+					instance3.dispose();
+					s2t.fail('dispose with a throwing disposable failed to throw');
+				} catch (e) {
+					s2t.ok(e instanceof SuppressedError, 'throws a SuppressedError');
+					s2t.equal(e.error, throwSentinel, 'first error is `throwSentinel`');
+					s2t.ok(e.suppressed instanceof SuppressedError, 'suppresses a SuppressedError');
+					s2t.equal(e.suppressed.error, sentinel2, 'suppressed error’s is `sentinel2`');
+					s2t.equal(e.suppressed.suppressed, sentinel3, 'suppressed error’s is `sentinel3`');
+				}
+
+				s2t.end();
+			});
 
 			st.end();
 		});
@@ -333,11 +484,6 @@ module.exports = {
 			TypeError,
 			'throws a TypeError if not called with `new`'
 		);
-
-		var throwSentinel = { 'throws': true };
-		var throwsSentinel = function throwsSentinel() {
-			throw throwSentinel;
-		};
 
 		t.test('disposed', { skip: typeof Promise !== 'function' }, function (st) {
 			var instance = new AsyncDisposableStack();
@@ -551,6 +697,7 @@ module.exports = {
 				st.equal(instance.disposed, false, 'old stack is not disposed');
 
 				var newStack = instance.move();
+				st.ok(newStack instanceof AsyncDisposableStack, 'returns a new AsyncDisposableStack');
 
 				st.equal(count, 0, '`increment` has not yet been called');
 
