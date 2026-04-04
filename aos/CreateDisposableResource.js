@@ -3,8 +3,9 @@
 var $SyntaxError = require('es-errors/syntax');
 var $TypeError = require('es-errors/type');
 
-var IsCallable = require('es-abstract/2024/IsCallable');
-var Type = require('es-abstract/2024/Type');
+var IsCallable = require('es-abstract/2025/IsCallable');
+
+var isObject = require('es-abstract/helpers/isObject');
 
 var GetDisposeMethod = require('./GetDisposeMethod');
 
@@ -20,7 +21,7 @@ module.exports = function CreateDisposableResource(V, hint) {
 			V = void undefined; // step 1.a.i
 			method = void undefined; // step 1.a.ii
 		} else {
-			if (typeof V !== 'undefined' && Type(V) !== 'Object') {
+			if (typeof V !== 'undefined' && !isObject(V)) {
 				throw new $TypeError('`V` must be an Object, or `null` or `undefined`'); // step 1.b.i
 			}
 

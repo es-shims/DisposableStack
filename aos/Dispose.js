@@ -5,12 +5,13 @@ var GetIntrinsic = require('get-intrinsic');
 var $SyntaxError = require('es-errors/syntax');
 var $Promise = GetIntrinsic('%Promise%', true);
 
-var Call = require('es-abstract/2024/Call');
-var PromiseResolve = require('es-abstract/2024/PromiseResolve');
-var Type = require('es-abstract/2024/Type');
+var Call = require('es-abstract/2025/Call');
+var PromiseResolve = require('es-abstract/2025/PromiseResolve');
+
+var isObject = require('es-abstract/helpers/isObject');
 
 module.exports = function Dispose(V, hint, method) {
-	if (typeof V !== 'undefined' && Type(V) !== 'Object') {
+	if (typeof V !== 'undefined' && !isObject(V)) {
 		throw new $SyntaxError('Assertion failed: `V` must be `undefined` or an Object');
 	}
 	if (hint !== 'SYNC-DISPOSE' && hint !== 'ASYNC-DISPOSE') {

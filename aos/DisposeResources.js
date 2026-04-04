@@ -9,11 +9,11 @@ var $Promise = GetIntrinsic('%Promise%', true);
 var callBound = require('call-bound');
 var $then = callBound('Promise.prototype.then', true);
 
-var CompletionRecord = require('es-abstract/2024/CompletionRecord');
+var CompletionRecord = require('es-abstract/2025/CompletionRecord');
 var Dispose = require('./Dispose');
-var NormalCompletion = require('es-abstract/2024/NormalCompletion');
-var PromiseResolve = require('es-abstract/2024/PromiseResolve');
-var ThrowCompletion = require('es-abstract/2024/ThrowCompletion');
+var NormalCompletion = require('es-abstract/2025/NormalCompletion');
+var PromiseResolve = require('es-abstract/2025/PromiseResolve');
+var ThrowCompletion = require('es-abstract/2025/ThrowCompletion');
 
 var SuppressedError = require('suppressed-error/polyfill')();
 

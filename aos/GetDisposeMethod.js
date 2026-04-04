@@ -3,16 +3,17 @@
 var $SyntaxError = require('es-errors/syntax');
 var $TypeError = require('es-errors/type');
 
-var Call = require('es-abstract/2024/Call');
-var GetMethod = require('es-abstract/2024/GetMethod');
-var NewPromiseCapability = require('es-abstract/2024/NewPromiseCapability');
-var Type = require('es-abstract/2024/Type');
+var Call = require('es-abstract/2025/Call');
+var GetMethod = require('es-abstract/2025/GetMethod');
+var NewPromiseCapability = require('es-abstract/2025/NewPromiseCapability');
+
+var isObject = require('es-abstract/helpers/isObject');
 
 var symbolDispose = require('../Symbol.dispose/polyfill')();
 var symbolAsyncDispose = require('../Symbol.asyncDispose/polyfill')();
 
 module.exports = function GetDisposeMethod(V, hint) {
-	if (Type(V) !== 'Object') {
+	if (!isObject(V)) {
 		throw new $TypeError('`V` must be an Object');
 	}
 	if (hint !== 'SYNC-DISPOSE' && hint !== 'ASYNC-DISPOSE') {
