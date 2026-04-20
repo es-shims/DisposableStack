@@ -621,7 +621,35 @@ module.exports = {
 					function (e) {
 						st.equal(e, throwSentinel, 'throws `throwSentinel`');
 					}
-				);
+				).then(function () {
+					// https://github.com/es-shims/DisposableStack/issues/9
+					var instance3 = new AsyncDisposableStack();
+					var ran = 0;
+					instance3.defer(function () { ran += 1; });
+					instance3.defer(throwsSentinel);
+
+					return instance3.disposeAsync().then(
+						function () {
+							st.fail('dispose with a throwing later disposable failed to throw');
+						},
+						function (e) {
+							st.equal(e, throwSentinel, 'throws `throwSentinel` when an earlier-pushed defer throws');
+							st.equal(ran, 1, 'later-pushed non-throwing defer still ran');
+						}
+					);
+				}).then(function () {
+					var instance4 = new AsyncDisposableStack();
+					instance4.defer(function () { return Promise.reject(throwSentinel); });
+
+					return instance4.disposeAsync().then(
+						function () {
+							st.fail('dispose with a rejecting disposable failed to throw');
+						},
+						function (e) {
+							st.equal(e, throwSentinel, 'rejecting defer surfaces `throwSentinel`');
+						}
+					);
+				});
 			});
 		});
 

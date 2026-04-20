@@ -11,7 +11,6 @@ var $then = callBound('Promise.prototype.then', true);
 
 var CompletionRecord = require('es-abstract/2025/CompletionRecord');
 var Dispose = require('./Dispose');
-var NormalCompletion = require('es-abstract/2025/NormalCompletion');
 var PromiseResolve = require('es-abstract/2025/PromiseResolve');
 var ThrowCompletion = require('es-abstract/2025/ThrowCompletion');
 
@@ -56,9 +55,8 @@ module.exports = function DisposeResources(disposeCapability, completion) {
 	};
 
 	var getPromise = actualHint === 'ASYNC-DISPOSE' && function getPromise(resource) {
-		return $then(
-			promise,
-			function () {
+		var runDispose = function () {
+			try {
 				var result = Dispose( // step 2.a
 					resource['[[ResourceValue]]'],
 					resource['[[Hint]]'],
@@ -67,9 +65,19 @@ module.exports = function DisposeResources(disposeCapability, completion) {
 				if (!result) {
 					throw new $SyntaxError('Assertion failed: non-`~ASYNC-DISPOSE~` resource returned a promise from Dispose');
 				}
-				return $then(result, NormalCompletion);
-			},
-			rejecter
+				return $then(result, void undefined, rejecter);
+			} catch (e) {
+				rejecter(e);
+			}
+			return void undefined;
+		};
+		return $then(
+			promise,
+			runDispose,
+			function (e) {
+				rejecter(e);
+				return runDispose();
+			}
 		);
 	};
 
@@ -96,5 +104,10 @@ module.exports = function DisposeResources(disposeCapability, completion) {
 	// eslint-disable-next-line no-param-reassign
 	disposeCapability['[[DisposableResourceStack]]'] = null; // step 3
 
-	return actualHint === 'ASYNC-DISPOSE' ? promise : completion; // step 4
+	if (actualHint === 'ASYNC-DISPOSE') { // step 4
+		return $then(promise, function () {
+			return completion;
+		});
+	}
+	return completion;
 };
