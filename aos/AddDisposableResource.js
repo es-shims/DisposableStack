@@ -29,7 +29,7 @@ module.exports = function AddDisposableResource(disposeCapability, V, hint) {
 
 	var resource;
 	if (arguments.length < 4) { // step 1
-		if (V == null && hint === 'SYNC_DISPOSE') {
+		if (V == null && hint === 'SYNC-DISPOSE') {
 			return 'UNUSED'; // step 1.a
 		}
 		resource = CreateDisposableResource(V, hint); // step 1.c

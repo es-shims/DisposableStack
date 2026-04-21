@@ -13,6 +13,7 @@ var semver = require('semver');
 var gOPD = require('gopd');
 var defineAccessorProperty = require('define-accessor-property');
 var SuppressedError = require('suppressed-error/polyfill')();
+var SLOT = require('internal-slot');
 
 var brokenNodePolyfill = semver.satisfies(process.version, '^18.18 || >= 20.4');
 
@@ -98,6 +99,12 @@ module.exports = {
 			instance.use(null);
 			instance.use();
 			instance.use(disposable);
+
+			// AddDisposableResource step 1.a: `use(null)` and `use(undefined)` on a sync stack must return without pushing a resource.
+			if (SLOT.has(instance, '[[DisposeCapability]]')) {
+				var cap = SLOT.get(instance, '[[DisposeCapability]]');
+				st.equal(cap['[[DisposableResourceStack]]'].length, 2, '`use(null)` and `use(undefined)` do not add a resource');
+			}
 
 			forEach(v.nonNullPrimitives, function (nonNullishObject) {
 				st['throws'](
