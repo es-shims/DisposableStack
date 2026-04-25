@@ -5,6 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.1.8](https://github.com/es-shims/DisposableStack/compare/v1.1.7...v1.1.8) - 2026-04-24
+
+### Fixed
+
+- [Fix] AsyncDisposableStack: continue disposal chain after a throwing defer [`#9`](https://github.com/es-shims/DisposableStack/issues/9)
+
+### Commits
+
+- [Tests] add coverage [`d33e3e4`](https://github.com/es-shims/DisposableStack/commit/d33e3e42096d6e5add0fe3cba3cf7d932ee94234)
+- [Deps] update `es-abstract` [`14c93e7`](https://github.com/es-shims/DisposableStack/commit/14c93e7325f9eea15bb601f91931e5824e100e1d)
+- [Tests] add some tests from https://github.com/tc39/test262/pull/4385 [`a3a5765`](https://github.com/es-shims/DisposableStack/commit/a3a5765ef72962a2c86d08593d4b16ced7f82a04)
+- [Tests] add test from https://github.com/tc39/test262/pull/4409 [`7190006`](https://github.com/es-shims/DisposableStack/commit/719000640ecdec434349a556e4da61927d062955)
+- [Fix] AddDisposableResource: use hyphen in `SYNC-DISPOSE` hint check [`c0871b3`](https://github.com/es-shims/DisposableStack/commit/c0871b3e57baeaec2d36c5bdf71976d6ef2483fc)
+- [Dev Deps] update `@es-shims/api`, `@ljharb/eslint-config`, `eslint`, `npmignore` [`101937f`](https://github.com/es-shims/DisposableStack/commit/101937fc159469b4571fb0c86c8bbd49790962c0)
+- [Deps] update `es-abstract`, `es-set-tostringtag`, `get-intrinsic`, `internal-slot` [`e308b2e`](https://github.com/es-shims/DisposableStack/commit/e308b2e7dd314415c9b5c9fc4669c43dc57846de)
+- [Dev Deps] update `es-value-fixtures`, `is-registered-symbol`, `is-symbol` [`d3fa19f`](https://github.com/es-shims/DisposableStack/commit/d3fa19f0ef77173be5f37576d00c99693d96a793)
+- [Deps] update `call-bind`, `es-abstract` [`234ed00`](https://github.com/es-shims/DisposableStack/commit/234ed00043bbcb18fdcf8e499e69d8933c1a813d)
+- [Deps] update `call-bound`, `get-intrinsic` [`e82920a`](https://github.com/es-shims/DisposableStack/commit/e82920a60dc2918ec8c60c1e1358d8aedfd943f3)
+- [Dev Deps] update `@ljharb/eslint-config` [`01cb23f`](https://github.com/es-shims/DisposableStack/commit/01cb23f77317637645d4d179ec658b668a66fbd1)
+- [Deps] update `hasown` [`051a4bd`](https://github.com/es-shims/DisposableStack/commit/051a4bd8f51d9f1d8d323701a2d979f5f19f2794)
+- [Dev Deps] update `@ljharb/eslint-config` [`471098d`](https://github.com/es-shims/DisposableStack/commit/471098dbac8201f69226239b8ff60969d84f328a)
+- [readme] replace runkit CI badge with shields.io check-runs badge [`f3ff761`](https://github.com/es-shims/DisposableStack/commit/f3ff761d7e51b000fe81cc1bb3dfe803409d13fb)
+- [Tests] skip symbol tests in no-symbol envs [`c368f08`](https://github.com/es-shims/DisposableStack/commit/c368f08a56b21eb451ca93fe5b336c1ed8386d97)
+- [Deps] update `call-bound` [`38523d8`](https://github.com/es-shims/DisposableStack/commit/38523d87eb4225decf7e28f5aa732e4fc947cf26)
+- [Dev Deps] update `object-inspect` [`a76f5f4`](https://github.com/es-shims/DisposableStack/commit/a76f5f416ec7603b25809dd7bce990bcdcb5a386)
+- [Dev Deps] update `es-value-fixtures` [`0d66fa3`](https://github.com/es-shims/DisposableStack/commit/0d66fa3def0a7801c1e39017a35b8137f161ceb8)
+
 ## [v1.1.7](https://github.com/es-shims/DisposableStack/compare/v1.1.6...v1.1.7) - 2024-12-12
 
 ### Commits
