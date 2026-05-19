@@ -2,7 +2,7 @@
 
 var $Object = Object;
 
-module.exports = function isDisposeCapabilityRecord(x) {
+module.exports = function isDisposableResourceRecord(x) {
 	return x
 		&& typeof x === 'object'
 		&& (

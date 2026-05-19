@@ -14,6 +14,7 @@ var callBound = require('call-bound');
 
 var $push = callBound('Array.prototype.push');
 
+// https://tc39.es/ecma262/#sec-adddisposableresource
 module.exports = function AddDisposableResource(disposableResourceStack, V, kind) {
 	if (!isArray(disposableResourceStack) || !every(disposableResourceStack, isDisposableResourceRecord)) {
 		throw new $TypeError('Assertion failed: `disposableResourceStack` must be a List of DisposableResource Records');
@@ -27,16 +28,18 @@ module.exports = function AddDisposableResource(disposableResourceStack, V, kind
 	}
 
 	var resource;
-	if (arguments.length < 4) { // step 1
-		if (V == null && kind === '~SYNC-DISPOSE~') {
-			return '~UNUSED~'; // step 1.a
-		}
-		resource = CreateDisposableResource(V, kind); // step 1.c
-	} else { // step 2
+	if (arguments.length > 3) { // step 1
 		if (typeof V !== 'undefined') {
-			throw new $TypeError('Assertion failed: `V` must be undefined when `method` is present'); // step 2.a
+			throw new $TypeError('Assertion failed: `V` must be undefined when `method` is present'); // step 1.a
 		}
-		resource = CreateDisposableResource(void undefined, kind, method); // step 2.b
+		resource = CreateDisposableResource(void undefined, kind, method); // step 1.b
+	} else { // step 2
+		if (V == null && kind === '~SYNC-DISPOSE~') {
+			return '~UNUSED~'; // step 2.a
+		}
+		// step 2.b: NOTE - when V is null/undefined and kind is ~ASYNC-DISPOSE~,
+		// we record the resource so that we still perform an Await during disposal.
+		resource = CreateDisposableResource(V, kind); // step 2.c
 	}
 	$push(disposableResourceStack, resource); // step 3
 
