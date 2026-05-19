@@ -14,7 +14,7 @@ module.exports = function Dispose(V, hint, method) {
 	if (typeof V !== 'undefined' && !isObject(V)) {
 		throw new $SyntaxError('Assertion failed: `V` must be `undefined` or an Object');
 	}
-	if (hint !== 'SYNC-DISPOSE' && hint !== 'ASYNC-DISPOSE') {
+	if (hint !== '~SYNC-DISPOSE~' && hint !== '~ASYNC-DISPOSE~') {
 		throw new $SyntaxError('Assertion failed: `hint` must be `~SYNC-DISPOSE~` or `~ASYNC-DISPOSE~`');
 	}
 	if (typeof method !== 'undefined' && typeof method !== 'function') {
@@ -23,7 +23,7 @@ module.exports = function Dispose(V, hint, method) {
 
 	var result = typeof method === 'undefined' ? method : Call(method, V); // step 1, 2
 
-	if (hint === 'ASYNC-DISPOSE') {
+	if (hint === '~ASYNC-DISPOSE~') {
 		return PromiseResolve($Promise, result); // step 3.a, 4
 	}
 };

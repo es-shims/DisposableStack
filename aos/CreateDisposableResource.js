@@ -10,7 +10,7 @@ var isObject = require('es-abstract/helpers/isObject');
 var GetDisposeMethod = require('./GetDisposeMethod');
 
 module.exports = function CreateDisposableResource(V, hint) {
-	if (hint !== 'SYNC-DISPOSE' && hint !== 'ASYNC-DISPOSE') {
+	if (hint !== '~SYNC-DISPOSE~' && hint !== '~ASYNC-DISPOSE~') {
 		throw new $SyntaxError('Assertion failed: `hint` must be `~SYNC-DISPOSE~` or `~ASYNC-DISPOSE~`');
 	}
 

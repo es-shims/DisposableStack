@@ -16,12 +16,12 @@ module.exports = function GetDisposeMethod(V, hint) {
 	if (!isObject(V)) {
 		throw new $TypeError('`V` must be an Object');
 	}
-	if (hint !== 'SYNC-DISPOSE' && hint !== 'ASYNC-DISPOSE') {
+	if (hint !== '~SYNC-DISPOSE~' && hint !== '~ASYNC-DISPOSE~') {
 		throw new $SyntaxError('Assertion failed: `hint` must be `~SYNC-DISPOSE~` or `~ASYNC-DISPOSE~`');
 	}
 
 	var method;
-	if (hint === 'ASYNC-DISPOSE' && symbolAsyncDispose) { // step 1
+	if (hint === '~ASYNC-DISPOSE~' && symbolAsyncDispose) { // step 1
 		method = GetMethod(V, symbolAsyncDispose); // step 1.a
 	}
 
@@ -37,7 +37,7 @@ module.exports = function GetDisposeMethod(V, hint) {
 				var O = this; // step 1.b.ii.1.a
 				// Call(method, O); // step // step 1.b.ii.1.b
 
-				if (hint === 'ASYNC-DISPOSE') {
+				if (hint === '~ASYNC-DISPOSE~') {
 					var promiseCapability = NewPromiseCapability(Promise); // step 1.b.ii.1.b
 					try {
 						Call(method, O); // step 1.b.ii.1.c

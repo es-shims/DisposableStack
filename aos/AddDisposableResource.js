@@ -15,7 +15,7 @@ module.exports = function AddDisposableResource(disposeCapability, V, hint) {
 	if (!isDisposeCapabilityRecord(disposeCapability)) {
 		throw new $TypeError('Assertion failed: `disposeCapability` must be a DisposeCapability Record');
 	}
-	if (hint !== 'SYNC-DISPOSE' && hint !== 'ASYNC-DISPOSE') {
+	if (hint !== '~SYNC-DISPOSE~' && hint !== '~ASYNC-DISPOSE~') {
 		throw new $SyntaxError('Assertion failed: `hint` must be `~SYNC-DISPOSE~` or `~ASYNC-DISPOSE~`');
 	}
 	var method = arguments.length > 3 ? arguments[3] : void undefined;
@@ -29,8 +29,8 @@ module.exports = function AddDisposableResource(disposeCapability, V, hint) {
 
 	var resource;
 	if (arguments.length < 4) { // step 1
-		if (V == null && hint === 'SYNC-DISPOSE') {
-			return 'UNUSED'; // step 1.a
+		if (V == null && hint === '~SYNC-DISPOSE~') {
+			return '~UNUSED~'; // step 1.a
 		}
 		resource = CreateDisposableResource(V, hint); // step 1.c
 	} else { // step 2
@@ -41,5 +41,5 @@ module.exports = function AddDisposableResource(disposeCapability, V, hint) {
 	}
 	$push(disposeCapability['[[DisposableResourceStack]]'], resource); // step 3
 
-	return 'UNUSED'; // step 4
+	return '~UNUSED~'; // step 4
 };

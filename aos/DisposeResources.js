@@ -40,7 +40,7 @@ module.exports = function DisposeResources(disposeCapability, completion) {
 		}
 	}
 
-	var promise = actualHint === 'ASYNC-DISPOSE' && PromiseResolve($Promise, completion);
+	var promise = actualHint === '~ASYNC-DISPOSE~' && PromiseResolve($Promise, completion);
 
 	var rejecter = function (e) {
 		if (completion.type() === 'throw') { // step 2.b.i
@@ -54,7 +54,7 @@ module.exports = function DisposeResources(disposeCapability, completion) {
 		}
 	};
 
-	var getPromise = actualHint === 'ASYNC-DISPOSE' && function getPromise(resource) {
+	var getPromise = actualHint === '~ASYNC-DISPOSE~' && function getPromise(resource) {
 		var runDispose = function () {
 			try {
 				var result = Dispose( // step 2.a
@@ -82,7 +82,7 @@ module.exports = function DisposeResources(disposeCapability, completion) {
 	};
 
 	for (var i = stack.length - 1; i >= 0; i -= 1) { // step 2
-		if (actualHint === 'ASYNC-DISPOSE') {
+		if (actualHint === '~ASYNC-DISPOSE~') {
 			promise = getPromise(stack[i]);
 		} else {
 			var resource = stack[i];
@@ -104,7 +104,7 @@ module.exports = function DisposeResources(disposeCapability, completion) {
 	// eslint-disable-next-line no-param-reassign
 	disposeCapability['[[DisposableResourceStack]]'] = null; // step 3
 
-	if (actualHint === 'ASYNC-DISPOSE') { // step 4
+	if (actualHint === '~ASYNC-DISPOSE~') { // step 4
 		return $then(promise, function () {
 			return completion;
 		});

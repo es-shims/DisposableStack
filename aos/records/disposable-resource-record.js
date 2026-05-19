@@ -9,6 +9,6 @@ module.exports = function isDisposeCapabilityRecord(x) {
 			typeof x['[[ResourceValue]]'] === 'undefined'
 			|| ($Object(x['[[ResourceValue]]']) === x['[[ResourceValue]]'])
 		)
-		&& (x['[[Hint]]'] === 'SYNC-DISPOSE' || x['[[Hint]]'] === 'ASYNC-DISPOSE')
+		&& (x['[[Hint]]'] === '~SYNC-DISPOSE~' || x['[[Hint]]'] === '~ASYNC-DISPOSE~')
 		&& (typeof x['[[DisposeMethod]]'] === 'function' || typeof x['[[DisposeMethod]]'] === 'undefined');
 };
