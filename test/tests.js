@@ -549,6 +549,16 @@ module.exports = {
 			instance.use();
 			instance.use(disposable);
 
+			// AddDisposableResource step 2.b: `use(null)` / `use(undefined)` on an async stack still record a
+			// resource (with no method) so disposeAsync performs an Await.
+			if (SLOT.has(instance, '[[DisposableResourceStack]]')) {
+				st.equal(
+					SLOT.get(instance, '[[DisposableResourceStack]]').length,
+					4,
+					'`use(null)` and `use(undefined)` on an async stack each add a resource'
+				);
+			}
+
 			forEach(v.nonNullPrimitives, function (nonNullishObject) {
 				st['throws'](
 					function () { instance.use(nonNullishObject); },
