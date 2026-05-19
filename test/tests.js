@@ -100,7 +100,7 @@ module.exports = {
 			instance.use();
 			instance.use(disposable);
 
-			// AddDisposableResource step 1.a: `use(null)` and `use(undefined)` on a sync stack must return without pushing a resource.
+			// AddDisposableResource step 2.a: `use(null)` and `use(undefined)` on a sync stack must return without pushing a resource.
 			if (SLOT.has(instance, '[[DisposableResourceStack]]')) {
 				st.equal(
 					SLOT.get(instance, '[[DisposableResourceStack]]').length,
