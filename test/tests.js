@@ -101,9 +101,12 @@ module.exports = {
 			instance.use(disposable);
 
 			// AddDisposableResource step 1.a: `use(null)` and `use(undefined)` on a sync stack must return without pushing a resource.
-			if (SLOT.has(instance, '[[DisposeCapability]]')) {
-				var cap = SLOT.get(instance, '[[DisposeCapability]]');
-				st.equal(cap['[[DisposableResourceStack]]'].length, 2, '`use(null)` and `use(undefined)` do not add a resource');
+			if (SLOT.has(instance, '[[DisposableResourceStack]]')) {
+				st.equal(
+					SLOT.get(instance, '[[DisposableResourceStack]]').length,
+					2,
+					'`use(null)` and `use(undefined)` do not add a resource'
+				);
 			}
 
 			forEach(v.nonNullPrimitives, function (nonNullishObject) {

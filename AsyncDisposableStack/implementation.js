@@ -14,7 +14,6 @@ var CreateMethodProperty = require('es-abstract/2023/CreateMethodProperty');
 var DefinePropertyOrThrow = require('es-abstract/2025/DefinePropertyOrThrow');
 var DisposeResources = require('../aos/DisposeResources');
 var IsCallable = require('es-abstract/2025/IsCallable');
-var NewDisposeCapability = require('../aos/NewDisposeCapability');
 var NormalCompletion = require('es-abstract/2025/NormalCompletion');
 var PromiseResolve = require('es-abstract/2025/PromiseResolve');
 
@@ -32,12 +31,12 @@ var AsyncDisposableStack = function AsyncDisposableStack() {
 	if (
 		!(this instanceof AsyncDisposableStack)
 		|| SLOT.has(this, '[[AsyncDisposableState]]')
-		|| SLOT.has(this, '[[DisposeCapability]]')
+		|| SLOT.has(this, '[[DisposableResourceStack]]')
 	) {
 		throw new $TypeError('can only be used with new');
 	}
 	SLOT.set(this, '[[AsyncDisposableState]]', '~PENDING~');
-	SLOT.set(this, '[[DisposeCapability]]', NewDisposeCapability());
+	SLOT.set(this, '[[DisposableResourceStack]]', []);
 };
 
 var disposed = function disposed() {
@@ -77,7 +76,7 @@ CreateMethodProperty(AsyncDisposableStack.prototype, 'disposeAsync', function di
 	return $then(
 		PromiseResolve(
 			$Promise,
-			DisposeResources(SLOT.get(asyncDisposableStack, '[[DisposeCapability]]'), NormalCompletion())
+			DisposeResources(SLOT.get(asyncDisposableStack, '[[DisposableResourceStack]]'), NormalCompletion())
 		),
 		function (completion) {
 			return completion['?'](); // step 5
@@ -92,7 +91,7 @@ CreateMethodProperty(AsyncDisposableStack.prototype, 'use', function use(value) 
 		throw new $ReferenceError('a disposed stack can not use anything new'); // step 3
 	}
 
-	AddDisposableResource(SLOT.get(asyncDisposableStack, '[[DisposeCapability]]'), value, '~ASYNC-DISPOSE~'); // step 4
+	AddDisposableResource(SLOT.get(asyncDisposableStack, '[[DisposableResourceStack]]'), value, '~ASYNC-DISPOSE~'); // step 4
 
 	return value; // step 5
 });
@@ -114,7 +113,7 @@ CreateMethodProperty(AsyncDisposableStack.prototype, 'adopt', function adopt(val
 	});
 
 	F.value = value;
-	AddDisposableResource(SLOT.get(asyncDisposableStack, '[[DisposeCapability]]'), void undefined, '~ASYNC-DISPOSE~', F); // step 8
+	AddDisposableResource(SLOT.get(asyncDisposableStack, '[[DisposableResourceStack]]'), void undefined, '~ASYNC-DISPOSE~', F); // step 8
 
 	return value; // step 9
 });
@@ -130,7 +129,7 @@ CreateMethodProperty(AsyncDisposableStack.prototype, 'defer', function defer(onD
 		throw new $TypeError('`onDispose` must be a function'); // step 4
 	}
 
-	AddDisposableResource(SLOT.get(asyncDisposableStack, '[[DisposeCapability]]'), void undefined, '~ASYNC-DISPOSE~', onDisposeAsync); // step 5
+	AddDisposableResource(SLOT.get(asyncDisposableStack, '[[DisposableResourceStack]]'), void undefined, '~ASYNC-DISPOSE~', onDisposeAsync); // step 5
 });
 
 CreateMethodProperty(AsyncDisposableStack.prototype, 'move', function move() {
@@ -141,8 +140,8 @@ CreateMethodProperty(AsyncDisposableStack.prototype, 'move', function move() {
 	}
 
 	var newAsyncDisposableStack = new AsyncDisposableStack(); // step 4-5
-	SLOT.set(newAsyncDisposableStack, '[[DisposeCapability]]', SLOT.get(asyncDisposableStack, '[[DisposeCapability]]')); // step 6
-	SLOT.set(asyncDisposableStack, '[[DisposeCapability]]', NewDisposeCapability()); // step 7
+	SLOT.set(newAsyncDisposableStack, '[[DisposableResourceStack]]', SLOT.get(asyncDisposableStack, '[[DisposableResourceStack]]')); // step 6
+	SLOT.set(asyncDisposableStack, '[[DisposableResourceStack]]', []); // step 7
 	markDisposed(asyncDisposableStack); // step 8
 
 	return newAsyncDisposableStack; // step 9

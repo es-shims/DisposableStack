@@ -14,25 +14,27 @@ var Dispose = require('./Dispose');
 var PromiseResolve = require('es-abstract/2025/PromiseResolve');
 var ThrowCompletion = require('es-abstract/2025/ThrowCompletion');
 
+var isArray = require('es-abstract/helpers/IsArray');
+var every = require('es-abstract/helpers/every');
+
+var isDisposableResourceRecord = require('./records/disposable-resource-record');
+
 var SuppressedError = require('suppressed-error/polyfill')();
 
-module.exports = function DisposeResources(disposeCapability, completion) {
-	// assertRecord('DisposeCapability Record', disposeCapability, 'disposeCapability'); ??
+module.exports = function DisposeResources(disposableResourceStack, completion) {
+	if (!isArray(disposableResourceStack) || !every(disposableResourceStack, isDisposableResourceRecord)) {
+		throw new $TypeError('Assertion failed: `disposableResourceStack` must be a List of DisposableResource Records');
+	}
 	if (!(completion instanceof CompletionRecord)) {
 		throw new $TypeError('`completion` must be a Completion Record');
 	}
 
-	var stack = disposeCapability['[[DisposableResourceStack]]'];
-
-	if (!stack) {
-		throw new $TypeError('Assertion failed: `disposeCapability.[[DisposableResourceStack]]` must not be ~EMPTY~'); // step 1
-	}
+	var stack = disposableResourceStack;
 
 	// for DisposableStack or AsyncDisposableStack, all are sync, or all are async.
 	// Only an environment record, via `using` and `await using`, can mix sync and async.
 	var actualKind;
 	for (var j = stack.length - 1; j >= 0; j -= 1) {
-		// assertRecord('DisposableResource Record', resource); ??
 		if (!actualKind) {
 			actualKind = stack[j]['[[Kind]]'];
 		} else if (actualKind !== stack[j]['[[Kind]]']) {
@@ -100,9 +102,6 @@ module.exports = function DisposeResources(disposeCapability, completion) {
 			}
 		}
 	}
-
-	// eslint-disable-next-line no-param-reassign
-	disposeCapability['[[DisposableResourceStack]]'] = null; // step 3
 
 	if (actualKind === '~ASYNC-DISPOSE~') { // step 4
 		return $then(promise, function () {

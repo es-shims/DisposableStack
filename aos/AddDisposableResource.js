@@ -3,7 +3,10 @@
 var $SyntaxError = require('es-errors/syntax');
 var $TypeError = require('es-errors/type');
 
-var isDisposeCapabilityRecord = require('./records/dispose-capability-record');
+var isArray = require('es-abstract/helpers/IsArray');
+var every = require('es-abstract/helpers/every');
+
+var isDisposableResourceRecord = require('./records/disposable-resource-record');
 
 var CreateDisposableResource = require('./CreateDisposableResource');
 
@@ -11,9 +14,9 @@ var callBound = require('call-bound');
 
 var $push = callBound('Array.prototype.push');
 
-module.exports = function AddDisposableResource(disposeCapability, V, kind) {
-	if (!isDisposeCapabilityRecord(disposeCapability)) {
-		throw new $TypeError('Assertion failed: `disposeCapability` must be a DisposeCapability Record');
+module.exports = function AddDisposableResource(disposableResourceStack, V, kind) {
+	if (!isArray(disposableResourceStack) || !every(disposableResourceStack, isDisposableResourceRecord)) {
+		throw new $TypeError('Assertion failed: `disposableResourceStack` must be a List of DisposableResource Records');
 	}
 	if (kind !== '~SYNC-DISPOSE~' && kind !== '~ASYNC-DISPOSE~') {
 		throw new $SyntaxError('Assertion failed: `kind` must be `~SYNC-DISPOSE~` or `~ASYNC-DISPOSE~`');
@@ -21,10 +24,6 @@ module.exports = function AddDisposableResource(disposeCapability, V, kind) {
 	var method = arguments.length > 3 ? arguments[3] : void undefined;
 	if (arguments.length > 3 && typeof method !== 'function') {
 		throw new $TypeError('Assertion failed: `method`, when present, must be a function');
-	}
-
-	if (!disposeCapability['[[DisposableResourceStack]]']) {
-		throw new $TypeError('Assertion failed: `disposeCapability.[[DisposableResourceStack]]` must not be ~EMPTY~');
 	}
 
 	var resource;
@@ -39,7 +38,7 @@ module.exports = function AddDisposableResource(disposeCapability, V, kind) {
 		}
 		resource = CreateDisposableResource(void undefined, kind, method); // step 2.b
 	}
-	$push(disposeCapability['[[DisposableResourceStack]]'], resource); // step 3
+	$push(disposableResourceStack, resource); // step 3
 
 	return '~UNUSED~'; // step 4
 };
