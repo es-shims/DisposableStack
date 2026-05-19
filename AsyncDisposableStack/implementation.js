@@ -108,14 +108,13 @@ CreateMethodProperty(AsyncDisposableStack.prototype, 'adopt', function adopt(val
 	}
 
 	// eslint-disable-next-line no-sequences
-	var F = (0, function () { // steps 5-7
+	var F = (0, function () { // steps 5-6
 		return Call(onDisposeAsync, void undefined, [value]);
 	});
 
-	F.value = value;
-	AddDisposableResource(SLOT.get(asyncDisposableStack, '[[DisposableResourceStack]]'), void undefined, '~ASYNC-DISPOSE~', F); // step 8
+	AddDisposableResource(SLOT.get(asyncDisposableStack, '[[DisposableResourceStack]]'), void undefined, '~ASYNC-DISPOSE~', F); // step 7
 
-	return value; // step 9
+	return value; // step 8
 });
 
 CreateMethodProperty(AsyncDisposableStack.prototype, 'defer', function defer(onDisposeAsync) {
@@ -139,7 +138,7 @@ CreateMethodProperty(AsyncDisposableStack.prototype, 'move', function move() {
 		throw new $ReferenceError('a disposed stack can not use anything new'); // step 3
 	}
 
-	var newAsyncDisposableStack = new AsyncDisposableStack(); // step 4-5
+	var newAsyncDisposableStack = new AsyncDisposableStack(); // steps 4-5
 	SLOT.set(newAsyncDisposableStack, '[[DisposableResourceStack]]', SLOT.get(asyncDisposableStack, '[[DisposableResourceStack]]')); // step 6
 	SLOT.set(asyncDisposableStack, '[[DisposableResourceStack]]', []); // step 7
 	markDisposed(asyncDisposableStack); // step 8
