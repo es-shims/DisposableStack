@@ -797,6 +797,31 @@ module.exports = {
 					stack.use(resource);
 					return stack.disposeAsync().then(function () {
 						st.equal(resource.disposed, true, 'Expected resource to have been disposed');
+
+						// GetDisposeMethod step 6-10: when a resource lacks Symbol.asyncDispose, the
+						// AsyncDisposableStack falls back to Symbol.dispose wrapped in a promise-returning closure.
+						var syncOnly = { disposed: false };
+						syncOnly[symbolAsyncDispose] = undefined;
+						syncOnly[Symbol.dispose] = function () { this.disposed = true; };
+
+						var syncOnlyThrows = {};
+						syncOnlyThrows[symbolAsyncDispose] = undefined;
+						syncOnlyThrows[Symbol.dispose] = throwsSentinel;
+
+						var stack2 = new AsyncDisposableStack();
+						stack2.use(syncOnly);
+						return stack2.disposeAsync().then(function () {
+							st.equal(syncOnly.disposed, true, 'sync-only resource was disposed via wrapped Symbol.dispose');
+
+							var stack3 = new AsyncDisposableStack();
+							stack3.use(syncOnlyThrows);
+							return stack3.disposeAsync().then(
+								function () { st.fail('throwing sync-only resource should reject'); },
+								function (e) {
+									st.equal(e, throwSentinel, 'throwing Symbol.dispose wrapped on async stack rejects with the thrown value');
+								}
+							);
+						});
 					});
 				});
 			});
