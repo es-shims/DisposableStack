@@ -11,12 +11,12 @@ var callBound = require('call-bound');
 
 var $push = callBound('Array.prototype.push');
 
-module.exports = function AddDisposableResource(disposeCapability, V, hint) {
+module.exports = function AddDisposableResource(disposeCapability, V, kind) {
 	if (!isDisposeCapabilityRecord(disposeCapability)) {
 		throw new $TypeError('Assertion failed: `disposeCapability` must be a DisposeCapability Record');
 	}
-	if (hint !== '~SYNC-DISPOSE~' && hint !== '~ASYNC-DISPOSE~') {
-		throw new $SyntaxError('Assertion failed: `hint` must be `~SYNC-DISPOSE~` or `~ASYNC-DISPOSE~`');
+	if (kind !== '~SYNC-DISPOSE~' && kind !== '~ASYNC-DISPOSE~') {
+		throw new $SyntaxError('Assertion failed: `kind` must be `~SYNC-DISPOSE~` or `~ASYNC-DISPOSE~`');
 	}
 	var method = arguments.length > 3 ? arguments[3] : void undefined;
 	if (arguments.length > 3 && typeof method !== 'function') {
@@ -29,15 +29,15 @@ module.exports = function AddDisposableResource(disposeCapability, V, hint) {
 
 	var resource;
 	if (arguments.length < 4) { // step 1
-		if (V == null && hint === '~SYNC-DISPOSE~') {
+		if (V == null && kind === '~SYNC-DISPOSE~') {
 			return '~UNUSED~'; // step 1.a
 		}
-		resource = CreateDisposableResource(V, hint); // step 1.c
+		resource = CreateDisposableResource(V, kind); // step 1.c
 	} else { // step 2
 		if (typeof V !== 'undefined') {
 			throw new $TypeError('Assertion failed: `V` must be undefined when `method` is present'); // step 2.a
 		}
-		resource = CreateDisposableResource(void undefined, hint, method); // step 2.b
+		resource = CreateDisposableResource(void undefined, kind, method); // step 2.b
 	}
 	$push(disposeCapability['[[DisposableResourceStack]]'], resource); // step 3
 

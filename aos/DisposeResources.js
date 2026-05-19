@@ -30,17 +30,17 @@ module.exports = function DisposeResources(disposeCapability, completion) {
 
 	// for DisposableStack or AsyncDisposableStack, all are sync, or all are async.
 	// Only an environment record, via `using` and `await using`, can mix sync and async.
-	var actualHint;
+	var actualKind;
 	for (var j = stack.length - 1; j >= 0; j -= 1) {
 		// assertRecord('DisposableResource Record', resource); ??
-		if (!actualHint) {
-			actualHint = stack[j]['[[Hint]]'];
-		} else if (actualHint !== stack[j]['[[Hint]]']) {
-			throw new $SyntaxError('mixed hint stacks are not supported');
+		if (!actualKind) {
+			actualKind = stack[j]['[[Kind]]'];
+		} else if (actualKind !== stack[j]['[[Kind]]']) {
+			throw new $SyntaxError('mixed-kind stacks are not supported');
 		}
 	}
 
-	var promise = actualHint === '~ASYNC-DISPOSE~' && PromiseResolve($Promise, completion);
+	var promise = actualKind === '~ASYNC-DISPOSE~' && PromiseResolve($Promise, completion);
 
 	var rejecter = function (e) {
 		if (completion.type() === 'throw') { // step 2.b.i
@@ -54,12 +54,12 @@ module.exports = function DisposeResources(disposeCapability, completion) {
 		}
 	};
 
-	var getPromise = actualHint === '~ASYNC-DISPOSE~' && function getPromise(resource) {
+	var getPromise = actualKind === '~ASYNC-DISPOSE~' && function getPromise(resource) {
 		var runDispose = function () {
 			try {
 				var result = Dispose( // step 2.a
 					resource['[[ResourceValue]]'],
-					resource['[[Hint]]'],
+					resource['[[Kind]]'],
 					resource['[[DisposeMethod]]']
 				);
 				if (!result) {
@@ -82,14 +82,14 @@ module.exports = function DisposeResources(disposeCapability, completion) {
 	};
 
 	for (var i = stack.length - 1; i >= 0; i -= 1) { // step 2
-		if (actualHint === '~ASYNC-DISPOSE~') {
+		if (actualKind === '~ASYNC-DISPOSE~') {
 			promise = getPromise(stack[i]);
 		} else {
 			var resource = stack[i];
 			try {
 				var result = Dispose( // step 2.a
 					resource['[[ResourceValue]]'],
-					resource['[[Hint]]'],
+					resource['[[Kind]]'],
 					resource['[[DisposeMethod]]']
 				);
 				if (result) {
@@ -104,7 +104,7 @@ module.exports = function DisposeResources(disposeCapability, completion) {
 	// eslint-disable-next-line no-param-reassign
 	disposeCapability['[[DisposableResourceStack]]'] = null; // step 3
 
-	if (actualHint === '~ASYNC-DISPOSE~') { // step 4
+	if (actualKind === '~ASYNC-DISPOSE~') { // step 4
 		return $then(promise, function () {
 			return completion;
 		});

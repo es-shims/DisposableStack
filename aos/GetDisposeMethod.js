@@ -12,16 +12,16 @@ var isObject = require('es-abstract/helpers/isObject');
 var symbolDispose = require('../Symbol.dispose/polyfill')();
 var symbolAsyncDispose = require('../Symbol.asyncDispose/polyfill')();
 
-module.exports = function GetDisposeMethod(V, hint) {
+module.exports = function GetDisposeMethod(V, kind) {
 	if (!isObject(V)) {
 		throw new $TypeError('`V` must be an Object');
 	}
-	if (hint !== '~SYNC-DISPOSE~' && hint !== '~ASYNC-DISPOSE~') {
-		throw new $SyntaxError('Assertion failed: `hint` must be `~SYNC-DISPOSE~` or `~ASYNC-DISPOSE~`');
+	if (kind !== '~SYNC-DISPOSE~' && kind !== '~ASYNC-DISPOSE~') {
+		throw new $SyntaxError('Assertion failed: `kind` must be `~SYNC-DISPOSE~` or `~ASYNC-DISPOSE~`');
 	}
 
 	var method;
-	if (hint === '~ASYNC-DISPOSE~' && symbolAsyncDispose) { // step 1
+	if (kind === '~ASYNC-DISPOSE~' && symbolAsyncDispose) { // step 1
 		method = GetMethod(V, symbolAsyncDispose); // step 1.a
 	}
 
@@ -37,7 +37,7 @@ module.exports = function GetDisposeMethod(V, hint) {
 				var O = this; // step 1.b.ii.1.a
 				// Call(method, O); // step // step 1.b.ii.1.b
 
-				if (hint === '~ASYNC-DISPOSE~') {
+				if (kind === '~ASYNC-DISPOSE~') {
 					var promiseCapability = NewPromiseCapability(Promise); // step 1.b.ii.1.b
 					try {
 						Call(method, O); // step 1.b.ii.1.c

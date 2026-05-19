@@ -9,9 +9,9 @@ var isObject = require('es-abstract/helpers/isObject');
 
 var GetDisposeMethod = require('./GetDisposeMethod');
 
-module.exports = function CreateDisposableResource(V, hint) {
-	if (hint !== '~SYNC-DISPOSE~' && hint !== '~ASYNC-DISPOSE~') {
-		throw new $SyntaxError('Assertion failed: `hint` must be `~SYNC-DISPOSE~` or `~ASYNC-DISPOSE~`');
+module.exports = function CreateDisposableResource(V, kind) {
+	if (kind !== '~SYNC-DISPOSE~' && kind !== '~ASYNC-DISPOSE~') {
+		throw new $SyntaxError('Assertion failed: `kind` must be `~SYNC-DISPOSE~` or `~ASYNC-DISPOSE~`');
 	}
 
 	var method;
@@ -25,7 +25,7 @@ module.exports = function CreateDisposableResource(V, hint) {
 				throw new $TypeError('`V` must be an Object, or `null` or `undefined`'); // step 1.b.i
 			}
 
-			method = GetDisposeMethod(V, hint); // step 1.b.ii
+			method = GetDisposeMethod(V, kind); // step 1.b.ii
 
 			if (typeof method === 'undefined') {
 				throw new $TypeError('dispose method must not be `undefined` on `V` when an object `V` is provided'); // step 1.b.i
@@ -39,7 +39,7 @@ module.exports = function CreateDisposableResource(V, hint) {
 	}
 	return { // step 3
 		'[[ResourceValue]]': V,
-		'[[Hint]]': hint,
+		'[[Kind]]': kind,
 		'[[DisposeMethod]]': method
 	};
 };
